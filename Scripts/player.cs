@@ -11,6 +11,7 @@ public partial class player : CharacterBody2D
 	private string currentDirrection = "down";
     private string currentAnimation = "";
 	private bool isRunning = false;
+	private float speed = 200;
 
     public override void _Ready()
     {
@@ -21,32 +22,38 @@ public partial class player : CharacterBody2D
 	{
 	}
 
+
 	public override void _PhysicsProcess(double delta)
 	{
+		Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+        Velocity = inputDirection * speed;
+        var collision = MoveAndCollide(Velocity*(float)delta);
+
 		this.isRunning = false;
 
 		if (Input.IsKeyPressed(Key.W))
 		{
 			this.currentDirrection = "up";
-			this.Position += new Vector2(0, -5);
+			// this.Position += new Vector2(0, -5);
+			
 			this.isRunning = true;
 		}
 		if (Input.IsKeyPressed(Key.S))
 		{
 			this.currentDirrection = "down";
-			this.Position += new Vector2(0, 5);
+			// this.Position += new Vector2(0, 5);
 			this.isRunning = true;
 		}
 		if (Input.IsKeyPressed(Key.A))
 		{
 			this.currentDirrection = "left";
-			this.Position += new Vector2(-5, 0);
+			// this.Position += new Vector2(-5, 0);
 			this.isRunning = true;
 		}
 		if (Input.IsKeyPressed(Key.D))
 		{	
 			this.currentDirrection = "right";
-			this.Position += new Vector2(5, 0);
+			// this.Position += new Vector2(5, 0);
 			this.isRunning = true;
 		}
 		

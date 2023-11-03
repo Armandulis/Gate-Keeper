@@ -1,3 +1,11 @@
-[gd_scene format=3 uid="uid://ceovilh3ucdil"]
+[gd_scene load_steps=3 format=3 uid="uid://ceovilh3ucdil"]
+
+[ext_resource type="PackedScene" uid="uid://cd1iosk5d2fm0" path="res://Scenes/player.tscn" id="1_2tndx"]
+[ext_resource type="PackedScene" uid="uid://dhslwybf7s066" path="res://room___castle.tscn" id="1_5bioy"]
 
 [node name="world" type="Node2D"]
+z_index = -1
+
+[node name="Room - Castle" parent="." instance=ExtResource("1_5bioy")]
+
+[node name="player" parent="." instance=ExtResource("1_2tndx")]
