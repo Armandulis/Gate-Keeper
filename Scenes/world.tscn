@@ -1,11 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceovilh3ucdil"]
+[gd_scene load_steps=4 format=3 uid="uid://ceovilh3ucdil"]
 
 [ext_resource type="PackedScene" uid="uid://cd1iosk5d2fm0" path="res://Scenes/player.tscn" id="1_2tndx"]
 [ext_resource type="PackedScene" uid="uid://dhslwybf7s066" path="res://room___castle.tscn" id="1_5bioy"]
+[ext_resource type="PackedScene" uid="uid://cegfkcg357urr" path="res://slime.tscn" id="3_ybxta"]
 
 [node name="world" type="Node2D"]
 z_index = -1
+scale = Vector2(3, 3)
+
+[node name="player" parent="." instance=ExtResource("1_2tndx")]
+z_index = 10
+position = Vector2(101, 82)
+scale = Vector2(0.3, 0.3)
 
 [node name="Room - Castle" parent="." instance=ExtResource("1_5bioy")]
 
-[node name="player" parent="." instance=ExtResource("1_2tndx")]
+[node name="slime" parent="." instance=ExtResource("3_ybxta")]
+position = Vector2(259.333, 102.333)
+collision_layer = 3
+collision_mask = 3

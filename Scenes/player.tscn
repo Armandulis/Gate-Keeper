@@ -1,7 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cd1iosk5d2fm0"]
+[gd_scene load_steps=17 format=3 uid="uid://cd1iosk5d2fm0"]
 
 [ext_resource type="Script" path="res://Scripts/player.cs" id="1_1h6lf"]
 [ext_resource type="Texture2D" uid="uid://b1q58wy5tdoma" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/full spritesheet.png" id="1_awamb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_62vod"]
+radius = 12.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fgle1"]
 atlas = ExtResource("1_awamb")
@@ -101,13 +104,16 @@ animations = [{
 }]
 
 [node name="player" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 floor_stop_on_slope = false
 script = ExtResource("1_1h6lf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 6)
+shape = SubResource("CircleShape2D_62vod")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(133, 73)
 scale = Vector2(3.125, 3.5)
 sprite_frames = SubResource("SpriteFrames_v3dxb")
 animation = &"running"

@@ -27,8 +27,8 @@ public partial class player : CharacterBody2D
 	{
 		Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
         Velocity = inputDirection * speed;
-        var collision = MoveAndCollide(Velocity*(float)delta);
-
+        // var collision = MoveAndCollide(Velocity*(float)delta);
+		MoveAndSlide();
 		this.isRunning = false;
 
 		if (Input.IsKeyPressed(Key.W))
