@@ -1,0 +1,102 @@
+[gd_scene load_steps=18 format=3 uid="uid://cegfkcg357urr"]
+
+[ext_resource type="Script" path="res://Scripts/Slime.cs" id="1_thgd3"]
+[ext_resource type="Texture2D" uid="uid://wkyslb50khln" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_idle_anim_f0.png" id="2_3wndb"]
+[ext_resource type="Texture2D" uid="uid://b42r58gah6oju" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_idle_anim_f1.png" id="3_lmylt"]
+[ext_resource type="Texture2D" uid="uid://dopw36bgrqslk" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_idle_anim_f2.png" id="4_ntcsi"]
+[ext_resource type="Texture2D" uid="uid://d0knpwsiuq02v" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_idle_anim_f3.png" id="5_he3et"]
+[ext_resource type="Texture2D" uid="uid://drutka7pu8i0h" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_idle_anim_f4.png" id="6_vxid8"]
+[ext_resource type="Texture2D" uid="uid://555bocn0hdh4" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_idle_anim_f5.png" id="7_5e7pv"]
+[ext_resource type="Texture2D" uid="uid://b7xswvyhkf8jc" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_run_anim_f0.png" id="8_kistr"]
+[ext_resource type="Texture2D" uid="uid://7lx33l62oqqe" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_run_anim_f1.png" id="9_6qahb"]
+[ext_resource type="Texture2D" uid="uid://dok0pnfsmr5n4" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_run_anim_f2.png" id="10_mrnqi"]
+[ext_resource type="Texture2D" uid="uid://dlpyc50ad7kqi" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_run_anim_f3.png" id="11_q7lbf"]
+[ext_resource type="Texture2D" uid="uid://durpu1n51fe16" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_run_anim_f4.png" id="12_uekxt"]
+[ext_resource type="Texture2D" uid="uid://2q86lx6wd8" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_run_anim_f5.png" id="13_wcwaj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6x6be"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3wndb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_lmylt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ntcsi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_he3et")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vxid8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5e7pv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_kistr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6qahb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_mrnqi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_q7lbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_uekxt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_wcwaj")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ghep"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v6ekp"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gonv3"]
+
+[node name="Slime" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_thgd3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6x6be")
+animation = &"running"
+frame_progress = 0.988533
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+scale = Vector2(5, 5)
+shape = SubResource("CircleShape2D_7ghep")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_v6ekp")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_gonv3")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="OnBodyExited"]
+[connection signal="body_entered" from="Hitbox" to="." method="OnHitboxBodyEntered"]
+[connection signal="body_exited" from="Hitbox" to="." method="OnHitboxBodyExited"]
