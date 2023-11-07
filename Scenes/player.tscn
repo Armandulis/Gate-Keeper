@@ -1,7 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://cd1iosk5d2fm0"]
+[gd_scene load_steps=18 format=3 uid="uid://cd1iosk5d2fm0"]
 
-[ext_resource type="Script" path="res://Scripts/player.cs" id="1_1h6lf"]
 [ext_resource type="Texture2D" uid="uid://b1q58wy5tdoma" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/full spritesheet.png" id="1_awamb"]
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_m7g1q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_62vod"]
 radius = 12.0
@@ -103,11 +103,15 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="player" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_nu18w"]
+radius = 34.0147
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
 collision_layer = 3
 collision_mask = 3
 floor_stop_on_slope = false
-script = ExtResource("1_1h6lf")
+script = ExtResource("1_m7g1q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 6)
@@ -117,3 +121,21 @@ shape = SubResource("CircleShape2D_62vod")
 scale = Vector2(3.125, 3.5)
 sprite_frames = SubResource("SpriteFrames_v3dxb")
 animation = &"running"
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_nu18w")
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="PlayerAttackCooldown" type="Timer" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[connection signal="body_entered" from="Hitbox" to="." method="OnHitboxEntered"]
+[connection signal="body_exited" from="Hitbox" to="." method="OnHitboxExited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="OnAttackCooldownTimeout"]
+[connection signal="timeout" from="PlayerAttackCooldown" to="." method="OnPlayerAttackCooldownTimeout"]
