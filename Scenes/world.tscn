@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ceovilh3ucdil"]
 
-[ext_resource type="PackedScene" uid="uid://cd1iosk5d2fm0" path="res://Scenes/Player.tscn" id="1_2tndx"]
+[ext_resource type="PackedScene" uid="uid://cd1iosk5d2fm0" path="res://Characters/Player/Player.tscn" id="1_2tndx"]
 [ext_resource type="PackedScene" uid="uid://dhslwybf7s066" path="res://Scenes/RoomCastle.tscn" id="1_5bioy"]
-[ext_resource type="PackedScene" uid="uid://cegfkcg357urr" path="res://Scenes/Slime.tscn" id="3_ybxta"]
+[ext_resource type="PackedScene" uid="uid://cegfkcg357urr" path="res://Characters/Slime/Slime.tscn" id="3_ybxta"]
 
 [node name="World" type="Node2D"]
 z_index = -1

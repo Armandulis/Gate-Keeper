@@ -7,6 +7,8 @@ using System.Xml.Schema;
 
 public partial class Player : CharacterBody2D
 {
+	[Export]
+	public HealthComponent healthComponent;
 	public AnimatedSprite2D animatedSprite2D;
 
 	private string currentDirrection = "down";
@@ -15,21 +17,21 @@ public partial class Player : CharacterBody2D
 
 	private bool isInAttachRangeEnemy = false;
 	private bool isInCooldownEnemy = false;
-	private float health = 100;
-	private bool isAlive = true;
 	private Godot.Timer attackCooldown;
 	private Godot.Timer playerAttackCooldown;
-	private Move move;
+
+	private PlayerMovementComponent playerMovementComponent;
 
     public override void _Ready()
     {
 		this.attackCooldown = (Godot.Timer) FindChild("AttackCooldown");
 		this.animatedSprite2D = (AnimatedSprite2D) FindChild("AnimatedSprite2D");
-		this.HandleAnimations();
 		this.playerAttackCooldown = (Godot.Timer) FindChild("PlayerAttackCooldown");
+		this.playerMovementComponent = (PlayerMovementComponent)FindChild("PlayerMovementComponent");
+		
+		this.HandleAnimations();
+	}
 
-		this.move = LoadAction();
-    }
     public override void _Process(double delta)
 	{
 	}
@@ -37,12 +39,15 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		this.move.Execute(this);
+		if(Input.IsKeyPressed(Key.F))
+		{
+			var scene = GD.Load<PackedScene>("res://Bolt.tscn");
+			var instance = scene.Instantiate();
+			AddChild(instance);
+		}
+		this.playerMovementComponent.Execute(this);
 		this.EnemyAttack();
 		this.Attack();
-		// Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-        // Velocity = inputDirection * speed;
-        // var collision = MoveAndCollide(Velocity*(float)delta);
 		MoveAndSlide();
 		this.isRunning = false;
 
@@ -127,14 +132,9 @@ public partial class Player : CharacterBody2D
 	{
 		if(this.isInAttachRangeEnemy && !isInCooldownEnemy )
 		{
-			this.health -= 10;
+			healthComponent.Damage(10);
 			this.isInCooldownEnemy = true;
 			this.attackCooldown.Start();
-			GD.Print(this.health);
-			if( this.health <= 0 )
-			{
-				this.isAlive = false;
-			}
 		}
 	}
 	
@@ -167,24 +167,11 @@ public partial class Player : CharacterBody2D
 			Core.instance.isPlayerAttacking = false;
 	}
 
-	public Move LoadAction()
-	{
-		PackedScene scene = GD.Load<PackedScene>("res://Actions/Move/Move.tscn");
-		Node sceneNode = scene.Instantiate();
-		AddChild(sceneNode);
-
-		return (Move)sceneNode;
-			//  if(sceneNode.GetScript().Obj.GetType().FullName is Move moveScript)
-		// {
-		// 	return moveScript;
-		// }
-
-		// return null;
-	
-	}
-
-	public Variant GetNodeScript(Node scene)
-	{
-		return scene.GetScript();
-	}
+	// public Node LoadAction()
+	// {
+	// 	PackedScene scene = GD.Load<PackedScene>("res://Components/PlayerMovement/PlayerMovement.tscn");
+	// 	Node sceneNode = scene.Instantiate();
+	// 	AddChild(sceneNode);
+	// 	return sceneNode;
+	// }
 }
