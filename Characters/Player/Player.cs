@@ -20,10 +20,15 @@ public partial class Player : CharacterBody2D
 	private Godot.Timer attackCooldown;
 	private Godot.Timer playerAttackCooldown;
 
+	private PackedScene boltScene;
 	private PlayerMovementComponent playerMovementComponent;
+
+	private BoltCasterComponent boltCasterComponent;
+	
 
     public override void _Ready()
     {
+		this.boltCasterComponent = (BoltCasterComponent)LoadAction("BoltCasterComponent");
 		this.attackCooldown = (Godot.Timer) FindChild("AttackCooldown");
 		this.animatedSprite2D = (AnimatedSprite2D) FindChild("AnimatedSprite2D");
 		this.playerAttackCooldown = (Godot.Timer) FindChild("PlayerAttackCooldown");
@@ -36,15 +41,15 @@ public partial class Player : CharacterBody2D
 	{
 	}
 
-
 	public override void _PhysicsProcess(double delta)
 	{
+		LookAt(GetGlobalMousePosition());
+		
 		if(Input.IsKeyPressed(Key.F))
 		{
-			var scene = GD.Load<PackedScene>("res://Bolt.tscn");
-			var instance = scene.Instantiate();
-			AddChild(instance);
+			boltCasterComponent.Cast();
 		}
+
 		this.playerMovementComponent.Execute(this);
 		this.EnemyAttack();
 		this.Attack();
@@ -167,11 +172,11 @@ public partial class Player : CharacterBody2D
 			Core.instance.isPlayerAttacking = false;
 	}
 
-	// public Node LoadAction()
-	// {
-	// 	PackedScene scene = GD.Load<PackedScene>("res://Components/PlayerMovement/PlayerMovement.tscn");
-	// 	Node sceneNode = scene.Instantiate();
-	// 	AddChild(sceneNode);
-	// 	return sceneNode;
-	// }
+	public Node LoadAction(string name)
+	{
+		PackedScene scene = GD.Load<PackedScene>("res://Components" + name + "/ " + name + ".tscn");
+		Node sceneNode = scene.Instantiate();
+		AddChild(sceneNode);
+		return sceneNode;
+	}
 }

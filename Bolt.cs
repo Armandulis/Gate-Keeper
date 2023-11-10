@@ -3,22 +3,17 @@ using System;
 
 public partial class Bolt : CharacterBody2D
 {
-	private Vector2 pos;
-	public override void _PhysicsProcess(double delta)
+	private Vector2 velocity;
+	private Vector2 aim;
+    public override void _Ready()
+    {
+		aim = GlobalPosition.DirectionTo( GetGlobalMousePosition());
+		Position = GetParent<Player>().GlobalPosition;
+		TopLevel = true;
+		LookAt(aim);
+    }
+    public override void _PhysicsProcess(double delta)
 	{
-		Velocity = GlobalPosition.DirectionTo( pos) * 300;
-		MoveAndSlide();
+		var collision = MoveAndCollide(aim.Normalized() * (float)delta * 1000);
 	}
-
-public override void _Input(InputEvent @event)
-{
-    // Mouse in viewport coordinates.
-    if (@event is InputEventMouseButton eventMouseButton)
-	this.pos = eventMouseButton.Position;
-    else if (@event is InputEventMouseMotion eventMouseMotion)
-        GD.Print("Mouse Motion at: ", eventMouseMotion.Position);
-
-    // Print the size of the viewport.
-    GD.Print("Viewport Resolution is: ", GetViewport().GetVisibleRect().Size);
-}
 }
