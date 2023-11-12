@@ -12,12 +12,15 @@ public partial class Slime : CharacterBody2D
 	private bool isChasing = false;
 	private Node2D player = null;
     private string currentAnimation = "";
+	
+	private BoltCasterComponent boltCasterComponent;
 
 	[Export]
 	private EnemyMeleeMovementComponent enemyMeleeMovementComponent;
 
     public override void _Ready()
     {
+		this.boltCasterComponent = (BoltCasterComponent)FindChild("BoltCasterComponent");
 		this.animatedSprite2D = (AnimatedSprite2D) FindChild("AnimatedSprite2D");
 		
 		this.HandleAnimations();
@@ -25,6 +28,7 @@ public partial class Slime : CharacterBody2D
     }
     public override void _PhysicsProcess(double delta)
 	{	
+		boltCasterComponent.Cast();
 		this.enemyMeleeMovementComponent.Chase(this, (float)delta);	
 		if(this.isChasing == true )
 		{

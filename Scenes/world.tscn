@@ -10,7 +10,7 @@ scale = Vector2(3, 3)
 
 [node name="Player" parent="." instance=ExtResource("1_2tndx")]
 z_index = 10
-position = Vector2(333.667, 184.333)
+position = Vector2(75, 69.3334)
 
 [node name="Room - Castle" parent="." instance=ExtResource("1_5bioy")]
 

@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnwm8ywj1whvy"]
+[gd_scene load_steps=8 format=3 uid="uid://bq8rveide5jdl"]
 
-[ext_resource type="Script" path="res://Components/BoltCasterComponent/Bolt.cs" id="1_452pl"]
 [ext_resource type="Texture2D" uid="uid://cc5hfem8nwtki" path="res://Assets/Bolt/bolt1.png" id="1_o4vj5"]
+[ext_resource type="Script" path="res://Components/BoltCasterComponent/Bolt.cs" id="1_s537b"]
 [ext_resource type="Texture2D" uid="uid://dyuxfw8mxbypy" path="res://Assets/Bolt/bolt2.png" id="2_v1dim"]
 [ext_resource type="Texture2D" uid="uid://debt45qe4s3ps" path="res://Assets/Bolt/bolt3.png" id="3_tmnpd"]
 [ext_resource type="Texture2D" uid="uid://ci7rpuvun1n7t" path="res://Assets/Bolt/bolt4.png" id="4_hc7ks"]
@@ -30,7 +30,7 @@ animations = [{
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource("1_452pl")
+script = ExtResource("1_s537b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, 0)
