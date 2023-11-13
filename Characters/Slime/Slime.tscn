@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cegfkcg357urr"]
+[gd_scene load_steps=23 format=3 uid="uid://cegfkcg357urr"]
 
 [ext_resource type="Script" path="res://Characters/Slime/Slime.cs" id="1_thgd3"]
 [ext_resource type="Texture2D" uid="uid://wkyslb50khln" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/slime/slime_idle_anim_f0.png" id="2_3wndb"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://xiop66rwfrek" path="res://Components/HealthComponent/HealthComponent.tscn" id="14_thxoi"]
 [ext_resource type="PackedScene" uid="uid://b8ggrfy76pxiw" path="res://Components/EnemyMeleeMovementComponent/EnemyMeleeMovementComponent.tscn" id="15_mfgg1"]
 [ext_resource type="PackedScene" uid="uid://dgv8iiyxlmu44" path="res://Components/BoltCasterComponent/BoltCasterComponent.tscn" id="16_q7t2r"]
+[ext_resource type="PackedScene" uid="uid://c2nrqq0g2cyny" path="res://Components/Hurtbox/Hurtbox.tscn" id="17_pbb7j"]
+[ext_resource type="PackedScene" uid="uid://beuryv8j26jih" path="res://Components/Hitbox/Hitbox.tscn" id="18_2jriq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6x6be"]
 animations = [{
@@ -69,10 +71,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_v6ekp"]
 radius = 6.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gonv3"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_iie30"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fjfks"]
+radius = 6.32456
 
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("healthComponent", "enemyMeleeMovementComponent")]
 scale = Vector2(0.5, 0.5)
+collision_mask = 7
 script = ExtResource("1_thgd3")
 healthComponent = NodePath("HealthComponent")
 enemyMeleeMovementComponent = NodePath("EnemyMeleeMovementComponent")
@@ -86,13 +93,26 @@ frame_progress = 0.988533
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_v6ekp")
 
-[node name="Hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CircleShape2D_gonv3")
-
 [node name="HealthComponent" parent="." instance=ExtResource("14_thxoi")]
 
 [node name="EnemyMeleeMovementComponent" parent="." instance=ExtResource("15_mfgg1")]
 
 [node name="BoltCasterComponent" parent="." instance=ExtResource("16_q7t2r")]
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("17_pbb7j")]
+collision_layer = 4
+collision_mask = 8
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_iie30")
+
+[node name="Hitbox" parent="." instance=ExtResource("18_2jriq")]
+collision_layer = 5
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_fjfks")
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

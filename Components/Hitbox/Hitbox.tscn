@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://beuryv8j26jih"]
+
+[ext_resource type="Script" path="res://Components/Hitbox/Hitbox.cs" id="1_pctyl"]
+
+[node name="Hitbox" type="Area2D"]
+monitoring = false
+script = ExtResource("1_pctyl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://cd1iosk5d2fm0"]
+[gd_scene load_steps=22 format=3 uid="uid://cd1iosk5d2fm0"]
 
 [ext_resource type="Texture2D" uid="uid://b1q58wy5tdoma" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/full spritesheet.png" id="1_awamb"]
 [ext_resource type="Script" path="res://Characters/Player/Player.cs" id="1_m7g1q"]
 [ext_resource type="PackedScene" uid="uid://cccq4cn5qwvrc" path="res://Components/PlayerMovementComponent/PlayerMovementComponent.tscn" id="3_6vxlg"]
 [ext_resource type="PackedScene" uid="uid://xiop66rwfrek" path="res://Components/HealthComponent/HealthComponent.tscn" id="4_d6umo"]
 [ext_resource type="PackedScene" uid="uid://dgv8iiyxlmu44" path="res://Components/BoltCasterComponent/BoltCasterComponent.tscn" id="5_4pavk"]
+[ext_resource type="PackedScene" uid="uid://c2nrqq0g2cyny" path="res://Components/Hurtbox/Hurtbox.tscn" id="6_xrngf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_62vod"]
 radius = 12.0
@@ -106,16 +107,16 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_nu18w"]
-radius = 34.0147
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_61tp5"]
+radius = 13.3333
+height = 46.6667
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("healthComponent") groups=["Players"]]
+[node name="Player" type="CharacterBody2D" groups=["Players"]]
 scale = Vector2(0.3, 0.3)
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 7
 floor_stop_on_slope = false
 script = ExtResource("1_m7g1q")
-healthComponent = NodePath("HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 6)
@@ -125,16 +126,6 @@ shape = SubResource("CircleShape2D_62vod")
 scale = Vector2(3.125, 3.5)
 sprite_frames = SubResource("SpriteFrames_v3dxb")
 animation = &"running"
-
-[node name="Hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CircleShape2D_nu18w")
-
-[node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 2.0
-
-[node name="PlayerAttackCooldown" type="Timer" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
@@ -146,7 +137,13 @@ maxHealth = 300.0
 
 [node name="BoltCasterComponent" parent="." instance=ExtResource("5_4pavk")]
 
-[connection signal="body_entered" from="Hitbox" to="." method="OnHitboxEntered"]
-[connection signal="body_exited" from="Hitbox" to="." method="OnHitboxExited"]
-[connection signal="timeout" from="AttackCooldown" to="." method="OnAttackCooldownTimeout"]
-[connection signal="timeout" from="PlayerAttackCooldown" to="." method="OnPlayerAttackCooldownTimeout"]
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_xrngf")]
+collision_layer = 3
+collision_mask = 20
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(3.33333, 0)
+shape = SubResource("CapsuleShape2D_61tp5")
+
+[editable path="Hurtbox"]

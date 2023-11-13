@@ -43,6 +43,7 @@ public partial class HealthComponent : Node2D
 	/// </summary>
 	public void Damage( float amount )
 	{
+		GD.Print(CurrentHealth);
 		CurrentHealth -= amount;
 	}
 

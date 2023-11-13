@@ -58,10 +58,4 @@ public partial class Slime : CharacterBody2D
 			this.animatedSprite2D.Play(this.currentAnimation);
 		}
 	}
-
-	public void Enemy()
-	{
-
-	}
-
 }

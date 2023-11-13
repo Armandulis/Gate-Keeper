@@ -7,18 +7,11 @@ using System.Xml.Schema;
 
 public partial class Player : CharacterBody2D
 {
-	[Export]
-	public HealthComponent healthComponent;
 	public AnimatedSprite2D animatedSprite2D;
 
 	private string currentDirrection = "down";
     private string currentAnimation = "";
 	private bool isRunning = false;
-
-	private bool isInAttachRangeEnemy = false;
-	private bool isInCooldownEnemy = false;
-	private Godot.Timer attackCooldown;
-	private Godot.Timer playerAttackCooldown;
 
 	private PlayerMovementComponent playerMovementComponent;
 
@@ -28,9 +21,7 @@ public partial class Player : CharacterBody2D
     public override void _Ready()
     {
 		this.boltCasterComponent = (BoltCasterComponent)FindChild("BoltCasterComponent");
-		this.attackCooldown = (Godot.Timer) FindChild("AttackCooldown");
 		this.animatedSprite2D = (AnimatedSprite2D) FindChild("AnimatedSprite2D");
-		this.playerAttackCooldown = (Godot.Timer) FindChild("PlayerAttackCooldown");
 		this.playerMovementComponent = (PlayerMovementComponent)FindChild("PlayerMovementComponent");
 		
 		this.HandleAnimations();
@@ -49,8 +40,6 @@ public partial class Player : CharacterBody2D
 		}
 
 		this.playerMovementComponent.Execute(this);
-		this.EnemyAttack();
-		this.Attack();
 		MoveAndSlide();
 		this.isRunning = false;
 
@@ -117,59 +106,7 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	public void PlayerClass()
-	{
-		
-	}
-
-	public void Attack()
-	{
-		if( Input.IsKeyPressed(Key.F) )
-		{
-			Core.instance.isPlayerAttacking = true;
-			this.playerAttackCooldown.Start();
-		}
-	}
-
-	public void EnemyAttack()
-	{
-		if(this.isInAttachRangeEnemy && !isInCooldownEnemy )
-		{
-			healthComponent.Damage(10);
-			this.isInCooldownEnemy = true;
-			this.attackCooldown.Start();
-		}
-	}
 	
-
-	public void OnHitboxEntered(Node2D body)
-	{
-		if(body.HasMethod("Enemy"))
-		{
-			isInAttachRangeEnemy = true;
-		}
-	}
-
-	
-	public void OnHitboxExited(Node2D body)
-	{
-		if(body.HasMethod("Enemy"))
-		{
-			isInAttachRangeEnemy = false;
-		}
-	}
-
-	public void OnAttackCooldownTimeout()
-	{
-		this.isInCooldownEnemy = false;
-	}
-
-	public void OnPlayerAttackCooldownTimeout()
-	{
-			this.playerAttackCooldown.Stop();
-			Core.instance.isPlayerAttacking = false;
-	}
-
 	public Node LoadAction(string name)
 	{
 		PackedScene scene = GD.Load<PackedScene>("res://Components//" + name + "// " + name + ".tscn");
