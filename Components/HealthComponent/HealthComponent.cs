@@ -4,9 +4,18 @@ using System;
 public partial class HealthComponent : Node2D
 {
 	
-	[Export]
-	public float maxHealth = 100;
-	public float currentHealth = 100;
+	[Signal]
+	public delegate void MySignalEventHandler();
+
+    public override void _Ready()
+    {
+
+		currentHealth = maxHealth;
+    }
+
+    [Export]
+	public float maxHealth;
+	public float currentHealth ;
 	
 
 	public float MaxHealth 
@@ -43,6 +52,8 @@ public partial class HealthComponent : Node2D
 	/// </summary>
 	public void Damage( float amount )
 	{
+		EmitSignal(SignalName.MySignal);
+
 		GD.Print(CurrentHealth);
 		CurrentHealth -= amount;
 	}

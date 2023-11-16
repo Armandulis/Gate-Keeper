@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cd1iosk5d2fm0" path="res://Characters/Player/Player.tscn" id="1_2tndx"]
 [ext_resource type="PackedScene" uid="uid://dhslwybf7s066" path="res://Scenes/RoomCastle.tscn" id="1_5bioy"]
-[ext_resource type="PackedScene" uid="uid://cegfkcg357urr" path="res://Characters/Slime/Slime.tscn" id="3_ybxta"]
+[ext_resource type="PackedScene" uid="uid://uf773c5s2pes" path="res://Characters/TrainingDummy/TrainingDummy.tscn" id="3_6p0kr"]
 
 [node name="World" type="Node2D"]
 z_index = -1
@@ -14,7 +14,5 @@ position = Vector2(75, 69.3334)
 
 [node name="Room - Castle" parent="." instance=ExtResource("1_5bioy")]
 
-[node name="Slime" parent="." instance=ExtResource("3_ybxta")]
-position = Vector2(259.333, 102.333)
-collision_layer = 3
-collision_mask = 3
+[node name="TrainingDummy" parent="." instance=ExtResource("3_6p0kr")]
+position = Vector2(172.333, 91.3333)

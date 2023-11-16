@@ -24,8 +24,6 @@ public partial class Hurtbox : Area2D
 			return;
 		}
 		
-		// int baseDamage = hitbox.damage;
-		// this. 
 		healthComponent.Damage(hitbox.damage);
 	}
 }

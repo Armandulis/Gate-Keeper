@@ -125,7 +125,7 @@ shape = SubResource("CircleShape2D_62vod")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3.125, 3.5)
 sprite_frames = SubResource("SpriteFrames_v3dxb")
-animation = &"running"
+animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
