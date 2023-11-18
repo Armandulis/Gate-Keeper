@@ -9,11 +9,13 @@ public partial class Bolt : CharacterBody2D
     {	
 		timer = (Timer)FindChild("Timer");
 		Hitbox hitbox = (Hitbox)FindChild("Hitbox");
-		Area2D impactDetector = (Area2D)FindChild("ImpactDetector");
-		if(GetParent<Node2D>().GetParentOrNull<Player>() != null)
+		Player player = GetParent<Node2D>().GetParentOrNull<Player>();
+		if( player != null)
 		{
 			aim = GlobalPosition.DirectionTo( GetGlobalMousePosition());
 			hitbox.CollisionLayer = 8;
+			hitbox.casterId = player.playerId;
+			hitbox.damage = 100;
 		}
 		else
 		{

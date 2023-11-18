@@ -7,6 +7,7 @@ using System.Xml.Schema;
 
 public partial class Player : CharacterBody2D
 {
+	public string playerId = "player";
 	public AnimatedSprite2D animatedSprite2D;
 
 	private string currentDirrection = "down";
@@ -34,7 +35,7 @@ public partial class Player : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		
-		if(Input.IsKeyPressed(Key.F))
+		if(Input.IsMouseButtonPressed( MouseButton.Left ) )
 		{
 			boltCasterComponent.Cast();
 		}

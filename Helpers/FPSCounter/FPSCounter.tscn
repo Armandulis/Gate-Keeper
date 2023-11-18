@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://chmcgs1u2bgtv"]
+
+[ext_resource type="Script" path="res://Helpers/FPSCounter/FPSCounter.cs" id="1_xysm3"]
+
+[node name="FPSCounter" type="Node2D"]
+script = ExtResource("1_xysm3")
