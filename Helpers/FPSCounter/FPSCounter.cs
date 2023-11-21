@@ -17,7 +17,7 @@ public partial class FPSCounter : Node2D
 		if(timer > cooldown )
 		{
 			timer = 0;
-			GD.Print(Engine.GetFramesPerSecond() );
+			GD.Print("FPS: " + Engine.GetFramesPerSecond() );
 		}
 	}
 }

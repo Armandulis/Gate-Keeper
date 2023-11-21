@@ -8,18 +8,17 @@ public partial class TrainingDummy : CharacterBody2D
     {
 		HealthComponent hp = (HealthComponent)FindChild("HealthComponent");
 		AnimationPlayer player = (AnimationPlayer)FindChild("AnimationPlayer");
-		hp.MySignal += () => {
-		Random rnd = new Random();
-		int month  = rnd.Next(1, 4);
-		if( month == 1)
+		hp.Damaged += ( SpellMetadata spellMetadata) => {
+			
+		if( spellMetadata.isDot == true)
 		{
 			player.Play("DotHit");
 		}
-		if( month == 2 )
+		if( spellMetadata.isCrit == false )
 		{
 			player.Play("NormalHit");
 		}
-		if( month == 3 )
+		if( spellMetadata.isCrit == true )
 		{
 			player.Play("CritHit");
 		}

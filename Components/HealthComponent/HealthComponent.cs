@@ -5,7 +5,7 @@ public partial class HealthComponent : Node2D
 {
 	
 	[Signal]
-	public delegate void MySignalEventHandler();
+	public delegate void DamagedEventHandler( SpellMetadata spellMetadata );
 
     public override void _Ready()
     {
@@ -50,12 +50,12 @@ public partial class HealthComponent : Node2D
 	/// <summary>
 	/// Subtracts amount from current health 
 	/// </summary>
-	public void Damage( float amount )
-	{
-		EmitSignal(SignalName.MySignal);
-
-		GD.Print(CurrentHealth);
-		CurrentHealth -= amount;
+	public void Damage( SpellMetadata spellMetadata )
+	{	
+		EmitSignal(SignalName.Damaged, spellMetadata);
+		spellMetadata.actualValue = spellMetadata.value;
+		DamageMeter.instance.AddDamageSpell(spellMetadata);
+		CurrentHealth -= spellMetadata.value;
 	}
 
 	
@@ -63,9 +63,9 @@ public partial class HealthComponent : Node2D
 	/// <summary>
 	/// Adds amount to current health 
 	/// </summary>
-	public void Heal( float amount )
+	public void Heal( SpellMetadata spellMetadata )
 	{
-		CurrentHealth += amount;
+		CurrentHealth += spellMetadata.value;
 	}
 
 }

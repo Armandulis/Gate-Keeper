@@ -7,21 +7,32 @@ public partial class Bolt : CharacterBody2D
 	Timer timer;
     public override void _Ready()
     {	
+		
+		SpellMetadata spellMetadata = new SpellMetadata();
+
 		timer = (Timer)FindChild("Timer");
 		Hitbox hitbox = (Hitbox)FindChild("Hitbox");
 		Player player = GetParent<Node2D>().GetParentOrNull<Player>();
+		
+		spellMetadata.spellId = "Bolt";
 		if( player != null)
 		{
 			aim = GlobalPosition.DirectionTo( GetGlobalMousePosition());
 			hitbox.CollisionLayer = 8;
-			hitbox.casterId = player.playerId;
-			hitbox.damage = 100;
+			hitbox.spellMetadata = spellMetadata;
+			spellMetadata.casterId = player.playerId;
+			spellMetadata.value = 100;
+			spellMetadata.isCrit = IsCrit();
+			spellMetadata.isDot = false;
+			
 		}
 		else
 		{
 			aim = GlobalPosition.DirectionTo(Core.instance.GetNearestPlayer(this).GlobalPosition);
 			hitbox.CollisionLayer = 16;
 		}
+		hitbox.spellMetadata = spellMetadata;
+
 		Position = GetParent<Node2D>().GetParent<Node2D>().GlobalPosition;
 		TopLevel = true;
 		LookAt(aim);
@@ -44,5 +55,17 @@ public partial class Bolt : CharacterBody2D
 	{
 		
 		QueueFree();
+	}
+
+	public bool IsCrit()
+	{	
+		Random random = new Random();
+		int chance  = random.Next(1, 100);
+		if( chance > 50)
+		{
+			return true;
+		}
+
+		return false;
 	}
 }

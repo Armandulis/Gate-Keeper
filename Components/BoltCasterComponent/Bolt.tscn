@@ -34,6 +34,7 @@ size = Vector2(45, 20)
 size = Vector2(45, 20)
 
 [node name="Bolt" type="CharacterBody2D"]
+rotation = 1.5708
 script = ExtResource("1_s537b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -24,6 +24,6 @@ public partial class Hurtbox : Area2D
 			return;
 		}
 		
-		healthComponent.Damage(hitbox.damage);
+		healthComponent.Damage(hitbox.spellMetadata);
 	}
 }
