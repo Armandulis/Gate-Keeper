@@ -35,6 +35,7 @@ public partial class MultiplayerController : Control
 	/// <exception cref="NotImplementedException"></exception>
     private void ConnectedToServer()
     {
+		RpcId(1, nameof(SendPlayerInformation), GetNode<LineEdit>("LineEdit").Text, Multiplayer.GetUniqueId() );
 		GD.Print("ConnectedToServer");
     }
 
@@ -77,6 +78,7 @@ public partial class MultiplayerController : Control
 
 		peer.Host.Compress( ENetConnection.CompressionMode.RangeCoder );
 		Multiplayer.MultiplayerPeer = peer;
+		SendPlayerInformation(GetNode<LineEdit>("LineEdit").Text, 1);
 		GD.Print( "Waiting for Players!" );
 	}
 
@@ -98,8 +100,33 @@ public partial class MultiplayerController : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void StartGame()
 	{
+		foreach(var player in GameManager.players)
+		{
+			GD.Print(player.name + " is playing");
+		}
 		var scene = ResourceLoader.Load<PackedScene>("res://Scenes/World.tscn").Instantiate();
 		GetTree().Root.AddChild(scene);
 		this.Hide();
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	private void SendPlayerInformation(string name, int id)
+	{
+		PlayerInfo playerInfo = new PlayerInfo();
+		playerInfo.id = id;
+		playerInfo.name = name;
+
+		if(!GameManager.players.Contains(playerInfo))
+		{
+			GameManager.players.Add(playerInfo);
+		}
+		
+		if(Multiplayer.IsServer())
+		{
+			foreach( var player in GameManager.players )
+			{
+				Rpc("SendPlayerInformation", name, id );
+			}
+		}
 	}
 }

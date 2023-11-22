@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Core="*res://Scripts/Core.cs"
 DamageMeter="*res://Scripts/DamageMeter.cs"
+GameManager="*res://Scripts/GameManager.cs"
 
 [dotnet]
 
