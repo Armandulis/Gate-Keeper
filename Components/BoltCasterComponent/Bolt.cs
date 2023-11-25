@@ -3,7 +3,7 @@ using System;
 
 public partial class Bolt : CharacterBody2D
 {
-	private Vector2 aim;
+	public Vector2 aim;
 	Timer timer;
     public override void _Ready()
     {	
@@ -17,10 +17,10 @@ public partial class Bolt : CharacterBody2D
 		spellMetadata.spellId = "Bolt";
 		if( player != null)
 		{
-			aim = GlobalPosition.DirectionTo( GetGlobalMousePosition());
+			// aim = GlobalPosition.DirectionTo( GetGlobalMousePosition());
 			hitbox.CollisionLayer = 8;
 			hitbox.spellMetadata = spellMetadata;
-			spellMetadata.casterId = player.playerId;
+			spellMetadata.casterId = player.Multiplayer.GetUniqueId().ToString();
 			spellMetadata.value = 100;
 			spellMetadata.isCrit = IsCrit();
 			spellMetadata.isDot = false;
@@ -33,8 +33,8 @@ public partial class Bolt : CharacterBody2D
 		}
 		hitbox.spellMetadata = spellMetadata;
 
-		Position = GetParent<Node2D>().GetParent<Node2D>().GlobalPosition;
-		TopLevel = true;
+		// Position = GetParent<Node2D>().GetParent<Node2D>().GlobalPosition;
+		// TopLevel = true;
 		LookAt(aim);
 
 		timer.Start(4);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cd1iosk5d2fm0"]
+[gd_scene load_steps=23 format=3 uid="uid://cd1iosk5d2fm0"]
 
 [ext_resource type="Texture2D" uid="uid://b1q58wy5tdoma" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/full spritesheet.png" id="1_awamb"]
 [ext_resource type="Script" path="res://Characters/Player/Player.cs" id="1_m7g1q"]
@@ -111,6 +111,12 @@ animations = [{
 radius = 13.3333
 height = 46.6667
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_msh4y"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+
 [node name="Player" type="CharacterBody2D" groups=["Players"]]
 scale = Vector2(0.3, 0.3)
 collision_layer = 2
@@ -145,5 +151,8 @@ healthComponent = NodePath("../HealthComponent")
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(3.33333, 0)
 shape = SubResource("CapsuleShape2D_61tp5")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_msh4y")
 
 [editable path="Hurtbox"]

@@ -25,16 +25,32 @@ public partial class BoltCasterComponent : Node2D
 	{
 		if( !isOnCooldown )
 		{
-			var scene = GD.Load<PackedScene>("res:///Components/BoltCasterComponent/Bolt.tscn");
-			Bolt instance = (Bolt)scene.Instantiate();
-			AddChild(instance);
-			timer.Start( 1 );
-			isOnCooldown = true;
+			Rpc("CastBolt", GetGlobalMousePosition());
 		}
 	}
 
 	public void _OnCooldownTimeout()
 	{
 			isOnCooldown = false;
+	}
+
+	
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
+	private void CastBolt(Vector2 mousePos)
+	{
+			// if(this.multiplayerSyncronizer.GetMultiplayerAuthority() != this.Multiplayer.GetUniqueId())
+			// {
+			// 	return;
+			// }
+			var scene = GD.Load<PackedScene>("res:///Components/BoltCasterComponent/Bolt.tscn");
+			Bolt instance = (Bolt)scene.Instantiate();
+			
+			instance.Position = GetParent<Node2D>().GlobalPosition;
+			instance.aim = GlobalPosition.DirectionTo( mousePos);
+			
+			AddChild(instance);
+			instance.TopLevel = true;
+			timer.Start( 1 );
+			isOnCooldown = true;
 	}
 }

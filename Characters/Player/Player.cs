@@ -17,14 +17,24 @@ public partial class Player : CharacterBody2D
 	private PlayerMovementComponent playerMovementComponent;
 
 	private BoltCasterComponent boltCasterComponent;
-	
+    private MultiplayerSynchronizer multiplayerSyncronizer;
+	private Godot.Camera2D camera;
+
 
     public override void _Ready()
     {
+		this.camera = (Godot.Camera2D)FindChild("Camera2D");
+		this.multiplayerSyncronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+		this.multiplayerSyncronizer.SetMultiplayerAuthority(int.Parse(Name ));
 		this.boltCasterComponent = (BoltCasterComponent)FindChild("BoltCasterComponent");
 		this.animatedSprite2D = (AnimatedSprite2D) FindChild("AnimatedSprite2D");
 		this.playerMovementComponent = (PlayerMovementComponent)FindChild("PlayerMovementComponent");
 		
+
+		if(this.multiplayerSyncronizer.GetMultiplayerAuthority() == this.Multiplayer.GetUniqueId())
+		{
+			camera.MakeCurrent();
+		}
 		this.HandleAnimations();
 	}
 
@@ -34,6 +44,10 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if(this.multiplayerSyncronizer.GetMultiplayerAuthority() != this.Multiplayer.GetUniqueId())
+		{
+			return;
+		}
 		
 		if(Input.IsMouseButtonPressed( MouseButton.Left ) )
 		{

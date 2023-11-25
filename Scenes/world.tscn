@@ -1,21 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://ceovilh3ucdil"]
+[gd_scene load_steps=6 format=3 uid="uid://ceovilh3ucdil"]
 
 [ext_resource type="PackedScene" uid="uid://cd1iosk5d2fm0" path="res://Characters/Player/Player.tscn" id="1_2tndx"]
 [ext_resource type="PackedScene" uid="uid://dhslwybf7s066" path="res://Scenes/RoomCastle.tscn" id="1_5bioy"]
-[ext_resource type="PackedScene" uid="uid://chmcgs1u2bgtv" path="res://Helpers/FPSCounter/FPSCounter.tscn" id="1_u0xl5"]
+[ext_resource type="Script" path="res://Scenes/SceneManager.cs" id="1_m6s07"]
 [ext_resource type="PackedScene" uid="uid://uf773c5s2pes" path="res://Characters/TrainingDummy/TrainingDummy.tscn" id="3_6p0kr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ajewj"]
+line_spacing = 1.0
+font_size = 8
 
 [node name="World" type="Node2D"]
 z_index = -1
 scale = Vector2(3, 3)
-
-[node name="FPSCounter" parent="." instance=ExtResource("1_u0xl5")]
-
-[node name="Player" parent="." instance=ExtResource("1_2tndx")]
-z_index = 10
-position = Vector2(75, 69.3334)
+script = ExtResource("1_m6s07")
+playerScene = ExtResource("1_2tndx")
 
 [node name="Room - Castle" parent="." instance=ExtResource("1_5bioy")]
 
 [node name="TrainingDummy" parent="." instance=ExtResource("3_6p0kr")]
 position = Vector2(172.333, 91.3333)
+
+[node name="PlayerSpawnPoints" type="Node2D" parent="."]
+
+[node name="0" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+position = Vector2(95.3333, 57.3333)
+
+[node name="1" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+position = Vector2(72.3333, 62.3333)
+
+[node name="2" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+position = Vector2(60, 85.6667)
+
+[node name="3" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+position = Vector2(97, 93.6667)
+
+[node name="4" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
+position = Vector2(113.667, 80.6667)
+
+[node name="DamageDisplay" type="Label" parent="."]
+offset_left = 233.667
+offset_top = 38.3333
+offset_right = 273.667
+offset_bottom = 64.3333
+scale = Vector2(3.75563, 1.98027)
+text = "asd"
+label_settings = SubResource("LabelSettings_ajewj")

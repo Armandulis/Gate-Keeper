@@ -125,7 +125,7 @@ public partial class MultiplayerController : Control
 		{
 			foreach( var player in GameManager.players )
 			{
-				Rpc("SendPlayerInformation", name, id );
+				Rpc("SendPlayerInformation", player.name, player.id );
 			}
 		}
 	}
