@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqd05fdp8r16r"]
+
+[ext_resource type="Texture2D" uid="uid://cth5l53g3koib" path="res://Assets/InterruptIcon/InteruptIconTransperant.png" id="1_nkjxm"]
+
+[node name="InteruptIcon" type="Node2D"]
+position = Vector2(8, 7)
+scale = Vector2(0.0120194, 0.0120194)
+
+[node name="InteruptIconTransperant" type="Sprite2D" parent="."]
+position = Vector2(441, 235)
+texture = ExtResource("1_nkjxm")

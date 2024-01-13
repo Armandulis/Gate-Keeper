@@ -39,4 +39,10 @@ public partial class Core : Node
 
 		return nearestPlayer;
 	}
+
+	public int GetTotalPlayers()
+	{
+		return GetTree().GetNodesInGroup("Players").Count;
+	}
+
 }

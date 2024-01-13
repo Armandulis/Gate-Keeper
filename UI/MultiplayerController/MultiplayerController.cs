@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class MultiplayerController : Control
 {
@@ -48,7 +49,18 @@ public partial class MultiplayerController : Control
     private void PeerDisconnect(long id)
     {
 		GD.Print("PeerDisconnect" + id.ToString());
-    }
+		GameManager.players.Remove( (PlayerInfo)GameManager.players.Where<PlayerInfo>(i => i.id == id ).First<PlayerInfo>() );
+		var players = GetTree().GetNodesInGroup("Player");
+		
+		foreach( Player player in players )
+		{
+			GD.Print(player.playerId);
+			if(player.playerId == id.ToString() )
+			{
+				player.QueueFree();
+			}
+		}
+	}
 
 	/// <summary>
 	/// Runs when the player connects, runs on all peers

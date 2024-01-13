@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://kf84aqaldah2"]
+
+[ext_resource type="PackedScene" uid="uid://dosiislku3j4r" path="res://DamageDetails.tscn" id="1_uujpj"]
+
+[node name="PlayerInterfaceController" type="CanvasLayer"]
+
+[node name="DamageDetails" parent="." instance=ExtResource("1_uujpj")]
+scale = Vector2(0.1, 0.1)

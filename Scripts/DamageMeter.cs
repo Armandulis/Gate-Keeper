@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
+using System.Linq;
 
 public partial class DamageMeter : Node
 {
@@ -16,7 +17,8 @@ public partial class DamageMeter : Node
     public DamageDone damageDone = new DamageDone();
     private Label label;
 
-    private string dmgText = "";
+    public string dmgText0 = "";
+    public string dmgText1 = "";
     
     public override void _Ready()
     {
@@ -43,11 +45,11 @@ public partial class DamageMeter : Node
         // $spells{float: value, bool: isCrit}
         dpsTimer += delta;
 		timer += delta;
+        int index = 0;
 		if(timer > cooldown )
 		{
             
 			timer = 0;
-
             foreach(var caster in damageDone.casters )
             {
                 string casterId = caster.Key;
@@ -57,7 +59,15 @@ public partial class DamageMeter : Node
                 DamageSegment damageSegment = casterDamageDone.damageSegments["Overall"];
                 text = text + "Total damage done: " + damageSegment.totalDamage + " | ";
                 text = text + "DPS: " + (damageSegment.totalDamage/dpsTimer) + " | ";
-                dmgText = text;
+                if( index == 0 )
+                {
+                    dmgText0 = text;
+                }
+                if(index == 1)
+                {
+                    dmgText1 = text;
+                }
+                index++;
             }
             // foreach (SpellMetadata spellMetadata in spellMetadataList)
             // {
@@ -70,18 +80,21 @@ public partial class DamageMeter : Node
 
     public void AddDamageSpell( SpellMetadata spellMetadata )
     {
-        // if(Multiplayer)
-        
-                GD.Print(dmgText);
-        Rpc(nameof(HandleCasterSpell), spellMetadata);
+        if( !IsMultiplayerAuthority() )
+        {
+            return;
+        }
+        Rpc(nameof(HandleCasterSpell),SpellMetadata.ConvertToRawString(spellMetadata));
     }
 
 
-    [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
-    public void HandleCasterSpell(SpellMetadata spellMetadata)
+    [Rpc(MultiplayerApi.RpcMode.Authority,CallLocal = true)]
+    void HandleCasterSpell(
+        string spellMetadataRaw
+    )
     {
-        damageDone.AddCasterSpell(spellMetadata);
-    }
+        damageDone.AddCasterSpell(SpellMetadata.ConvertFromRawString(spellMetadataRaw));
+     }
 
     
 	// [Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]

@@ -13,11 +13,17 @@ public partial class Player : CharacterBody2D
 	private string currentDirrection = "down";
     private string currentAnimation = "";
 	private bool isRunning = false;
+	private bool isDashing = false;
+	private bool isDashOnCooldown = false;
+	
+	public Godot.Timer dashTimer;
+	public Godot.Timer dashCooldownTimer;
 
 	private PlayerMovementComponent playerMovementComponent;
 
 	private BoltCasterComponent boltCasterComponent;
-    private MultiplayerSynchronizer multiplayerSyncronizer;
+    public MultiplayerSynchronizer multiplayerSyncronizer;
+    // public DamageDetails damageDetails;
 	private Godot.Camera2D camera;
 
 
@@ -30,12 +36,32 @@ public partial class Player : CharacterBody2D
 		this.animatedSprite2D = (AnimatedSprite2D) FindChild("AnimatedSprite2D");
 		this.playerMovementComponent = (PlayerMovementComponent)FindChild("PlayerMovementComponent");
 		
-
+		dashTimer = (Godot.Timer)FindChild("DashTimer");
+		dashCooldownTimer = (Godot.Timer)FindChild("DashCooldownTimer");
+		
 		if(this.multiplayerSyncronizer.GetMultiplayerAuthority() == this.Multiplayer.GetUniqueId())
 		{
-			camera.MakeCurrent();
+				camera.MakeCurrent();
+				PackedScene scene = GD.Load<PackedScene>("res://UI/PlayerInterfaceController/PlayerInterfaceController.tscn");
+				Node sceneNode = scene.Instantiate();
+				camera.AddChild(sceneNode);
+				
+				
+			// damageDetails = (DamageDetails)FindChild("DamageDetails");
 		}
 		this.HandleAnimations();
+	}
+
+	public void _OnDashCooldownTimeout()
+	{
+		this.isDashOnCooldown = false;
+	}
+
+
+	public void _OnDashTimeout()
+	{
+		this.playerMovementComponent.speed = this.playerMovementComponent.baseSpeed;
+		this.isDashing = false;
 	}
 
     public override void _Process(double delta)
@@ -58,33 +84,54 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 		this.isRunning = false;
 
-		if (Input.IsKeyPressed(Key.W))
+		if(!this.isDashing)
 		{
-			this.currentDirrection = "up";
-			// this.Position += new Vector2(0, -5);
-			
-			this.isRunning = true;
+			if (Input.IsKeyPressed(Key.W))
+			{
+				this.currentDirrection = "up";
+				// this.Position += new Vector2(0, -5);
+				
+				this.isRunning = true;
+			}
+			if (Input.IsKeyPressed(Key.S))
+			{
+				this.currentDirrection = "down";
+				// this.Position += new Vector2(0, 5);
+				this.isRunning = true;
+			}
+			if (Input.IsKeyPressed(Key.A))
+			{
+				this.currentDirrection = "left";
+				// this.Position += new Vector2(-5, 0);
+				this.isRunning = true;
+			}
+			if (Input.IsKeyPressed(Key.D))
+			{	
+				this.currentDirrection = "right";
+				// this.Position += new Vector2(5, 0);
+				this.isRunning = true;
+			}
 		}
-		if (Input.IsKeyPressed(Key.S))
-		{
-			this.currentDirrection = "down";
-			// this.Position += new Vector2(0, 5);
-			this.isRunning = true;
-		}
-		if (Input.IsKeyPressed(Key.A))
-		{
-			this.currentDirrection = "left";
-			// this.Position += new Vector2(-5, 0);
-			this.isRunning = true;
-		}
-		if (Input.IsKeyPressed(Key.D))
-		{	
-			this.currentDirrection = "right";
-			// this.Position += new Vector2(5, 0);
-			this.isRunning = true;
-		}
+			if (Input.IsMouseButtonPressed(MouseButton.Right))
+			{	
+				this.HandleDash();
+			}
+		
+			// timer.Start( 1 );
 		
 		this.HandleAnimations();
+	}
+
+	public void HandleDash()
+	{
+		if(!this.isDashOnCooldown)
+		{
+			this.playerMovementComponent.speed = this.playerMovementComponent.dashSpeed;
+			this.isDashing = true;
+			this.isDashOnCooldown = true;
+			this.dashCooldownTimer.Start(2);
+			this.dashTimer.Start(0.14);
+		}
 	}
 
 	public void HandleAnimations()

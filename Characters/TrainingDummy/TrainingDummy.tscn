@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://uf773c5s2pes"]
+[gd_scene load_steps=14 format=3 uid="uid://uf773c5s2pes"]
 
 [ext_resource type="Script" path="res://Characters/TrainingDummy/TrainingDummy.cs" id="1_gdrjt"]
 [ext_resource type="Texture2D" uid="uid://u5oyff1g6i0w" path="res://Assets/Training dummy/Training Dummy Sprite Sheet.png" id="1_q2kah"]
 [ext_resource type="PackedScene" uid="uid://c2nrqq0g2cyny" path="res://Components/Hurtbox/Hurtbox.tscn" id="2_fd0d6"]
 [ext_resource type="PackedScene" uid="uid://xiop66rwfrek" path="res://Components/HealthComponent/HealthComponent.tscn" id="3_omnw1"]
+[ext_resource type="PackedScene" uid="uid://dm1w8v55i2hft" path="res://Components/CastBarComponent/CastBarComponent.tscn" id="5_net6k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ualew"]
 
@@ -126,6 +127,13 @@ libraries = {
 texture = ExtResource("1_q2kah")
 hframes = 8
 vframes = 3
+
+[node name="CastBarComponent" parent="." instance=ExtResource("5_net6k")]
+position = Vector2(-29, -42)
+
+[node name="CastTime" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [editable path="Hurtbox"]
 [editable path="HealthComponent"]

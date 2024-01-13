@@ -155,4 +155,11 @@ shape = SubResource("CapsuleShape2D_61tp5")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_msh4y")
 
+[node name="DashTimer" type="Timer" parent="."]
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="DashTimer" to="." method="_OnDashTimeout"]
+[connection signal="timeout" from="DashCooldownTimer" to="." method="_OnDashCooldownTimeout"]
+
 [editable path="Hurtbox"]

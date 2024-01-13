@@ -5,6 +5,8 @@ public partial class Bolt : CharacterBody2D
 {
 	public Vector2 aim;
 	Timer timer;
+
+	public string casterId;
     public override void _Ready()
     {	
 		
@@ -17,10 +19,10 @@ public partial class Bolt : CharacterBody2D
 		spellMetadata.spellId = "Bolt";
 		if( player != null)
 		{
-			// aim = GlobalPosition.DirectionTo( GetGlobalMousePosition());
 			hitbox.CollisionLayer = 8;
 			hitbox.spellMetadata = spellMetadata;
-			spellMetadata.casterId = player.Multiplayer.GetUniqueId().ToString();
+			
+			spellMetadata.casterId = player.multiplayerSyncronizer.GetMultiplayerAuthority().ToString();
 			spellMetadata.value = 100;
 			spellMetadata.isCrit = IsCrit();
 			spellMetadata.isDot = false;
