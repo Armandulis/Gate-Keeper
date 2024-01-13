@@ -18,16 +18,17 @@ public partial class SpellMetadata : GodotObject
 
     public static SpellMetadata ConvertFromRawString( string rawData)
     {
-        dynamic data = JsonSerializer.Deserialize<SpellMetadata>( rawData);
+        JsonElement  data = JsonSerializer.Deserialize<JsonElement>( rawData);
         SpellMetadata spellMetadata = new SpellMetadata
         {
-            spellId = data.spellId,
-            casterId = data.casterId,
-            value = data.value,
-            actualValue = data.actualValue,
-            isCrit = data.isCrit,
-            isDot = data.isDot
+            spellId = data.GetProperty("spellId").GetString(),
+            casterId = data.GetProperty("casterId").GetString(),
+            value = data.GetProperty("value").GetSingle(),
+            actualValue =data.GetProperty("actualValue").GetSingle(),
+            isCrit = data.GetProperty("isCrit").GetBoolean(),
+            isDot = data.GetProperty("isDot").GetBoolean()
         };
+        GD.Print(spellMetadata.value);
         return spellMetadata;
     }
     
@@ -42,6 +43,7 @@ public partial class SpellMetadata : GodotObject
             { "isCrit", spellMetadata.isCrit },
             { "isDot", spellMetadata.isDot }
         };
+        
 
         return JsonSerializer.Serialize(data);
     }

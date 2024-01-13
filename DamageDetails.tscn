@@ -7,6 +7,9 @@ layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
+offset_left = -1165.0
+offset_right = -8.0
+offset_bottom = 649.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -15,31 +18,18 @@ label0 = NodePath("0")
 label1 = NodePath("1")
 
 [node name="0" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -2030.0
-offset_top = 10.0
-offset_right = -1990.0
-offset_bottom = 36.0
-grow_horizontal = 0
-scale = Vector2(50.7516, 3.72114)
-theme_override_font_sizes/font_size = 14
-text = "0"
-horizontal_alignment = 2
+layout_mode = 0
+offset_left = 775.0
+offset_top = -3.0
+offset_right = 1167.0
+offset_bottom = 49.0
+text = "player 1 damage done: 10920
+player 2 damage done: 2301"
 
 [node name="1" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -2030.0
-offset_top = 100.0
-offset_right = -1990.0
-offset_bottom = 126.0
-grow_horizontal = 0
-scale = Vector2(50.7516, 3.72114)
-theme_override_font_sizes/font_size = 14
-text = "0"
-horizontal_alignment = 2
+offset_left = 768.0
+offset_top = 54.0
+offset_right = 1160.0
+offset_bottom = 106.0
+text = "player 1 damage done: 10920
+player 2 damage done: 2301"

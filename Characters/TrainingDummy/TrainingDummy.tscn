@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://uf773c5s2pes"]
+[gd_scene load_steps=13 format=3 uid="uid://uf773c5s2pes"]
 
 [ext_resource type="Script" path="res://Characters/TrainingDummy/TrainingDummy.cs" id="1_gdrjt"]
 [ext_resource type="Texture2D" uid="uid://u5oyff1g6i0w" path="res://Assets/Training dummy/Training Dummy Sprite Sheet.png" id="1_q2kah"]
@@ -7,8 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dm1w8v55i2hft" path="res://Components/CastBarComponent/CastBarComponent.tscn" id="5_net6k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ualew"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d502o"]
 
 [sub_resource type="Animation" id="Animation_j3ug1"]
 resource_name = "CritHit"
@@ -115,9 +113,6 @@ shape = SubResource("CapsuleShape2D_ualew")
 [node name="HealthComponent" parent="." instance=ExtResource("3_omnw1")]
 maxHealth = 1e+06
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_d502o")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_pvg68")
@@ -134,6 +129,9 @@ position = Vector2(-29, -42)
 [node name="CastTime" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ualew")
 
 [editable path="Hurtbox"]
 [editable path="HealthComponent"]
