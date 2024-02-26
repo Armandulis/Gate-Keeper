@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://cd1iosk5d2fm0" path="res://Characters/Player/Player.tscn" id="1_2tndx"]
 [ext_resource type="PackedScene" uid="uid://dhslwybf7s066" path="res://Scenes/RoomCastle.tscn" id="1_5bioy"]
 [ext_resource type="Script" path="res://Scenes/SceneManager.cs" id="1_m6s07"]
-[ext_resource type="PackedScene" uid="uid://uf773c5s2pes" path="res://Characters/TrainingDummy/TrainingDummy.tscn" id="3_6p0kr"]
 [ext_resource type="PackedScene" uid="uid://yhj547kt6ac5" path="res://Characters/SoulbinderXalthar/SoulbinderXalthar.tscn" id="5_l8h4k"]
+[ext_resource type="PackedScene" uid="uid://uf773c5s2pes" path="res://Characters/TrainingDummy/TrainingDummy.tscn" id="5_tkwhh"]
 
 [node name="World" type="Node2D"]
 z_index = -1
@@ -14,25 +14,25 @@ playerScene = ExtResource("1_2tndx")
 
 [node name="Room - Castle" parent="." instance=ExtResource("1_5bioy")]
 
-[node name="TrainingDummy" parent="." instance=ExtResource("3_6p0kr")]
-position = Vector2(205.333, 131)
-
 [node name="PlayerSpawnPoints" type="Node2D" parent="."]
 
 [node name="0" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
-position = Vector2(95.3333, 57.3333)
+position = Vector2(107.667, 205.333)
 
 [node name="1" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
-position = Vector2(-138.333, 144.667)
+position = Vector2(81, 192)
 
 [node name="2" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
-position = Vector2(60, 85.6667)
+position = Vector2(133, 206.667)
 
 [node name="3" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
-position = Vector2(97, 93.6667)
+position = Vector2(152, 202.333)
 
 [node name="4" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
-position = Vector2(113.667, 80.6667)
+position = Vector2(93.3333, 200.667)
 
 [node name="Soulbinder Xalthar" parent="." instance=ExtResource("5_l8h4k")]
-position = Vector2(886.333, 341.333)
+position = Vector2(549.333, 293.667)
+
+[node name="TrainingDummy" parent="." instance=ExtResource("5_tkwhh")]
+position = Vector2(202.667, 97)

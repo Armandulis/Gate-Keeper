@@ -9,3 +9,4 @@ script = ExtResource("1_ke0w2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [connection signal="area_entered" from="." to="." method="OnHurtboxAreaEntered"]
+[connection signal="area_exited" from="." to="." method="OnHurtboxAreaExited"]

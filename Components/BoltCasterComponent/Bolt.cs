@@ -5,6 +5,7 @@ public partial class Bolt : CharacterBody2D
 {
 	public Vector2 aim;
 	Timer timer;
+	Area2D impactDetector;
 
 	public string casterId;
     public override void _Ready()
@@ -15,6 +16,7 @@ public partial class Bolt : CharacterBody2D
 		timer = (Timer)FindChild("Timer");
 		Hitbox hitbox = (Hitbox)FindChild("Hitbox");
 		Player player = GetParent<Node2D>().GetParentOrNull<Player>();
+		impactDetector = (Area2D)FindChild("ImpactDetector");
 		
 		spellMetadata.spellId = "Bolt";
 		if( player != null)
@@ -26,11 +28,14 @@ public partial class Bolt : CharacterBody2D
 			spellMetadata.value = 100;
 			spellMetadata.isCrit = IsCrit();
 			spellMetadata.isDot = false;
-			
+			impactDetector.SetCollisionMaskValue(2, false);
+			impactDetector.SetCollisionMaskValue(4, true);
 		}
 		else
 		{
-			aim = GlobalPosition.DirectionTo(Core.instance.GetNearestPlayer(this).GlobalPosition);
+			
+			impactDetector.SetCollisionMaskValue(2, true);
+			impactDetector.SetCollisionMaskValue(4, false);
 			hitbox.CollisionLayer = 16;
 		}
 		hitbox.spellMetadata = spellMetadata;
@@ -44,7 +49,7 @@ public partial class Bolt : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
 	{
-		var collision = MoveAndCollide(aim.Normalized() * (float)delta * 1000);
+		var collision = MoveAndCollide(aim.Normalized() * (float)delta * 1300);
 		
 	}
 

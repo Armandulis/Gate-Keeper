@@ -1,16 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://yhj547kt6ac5"]
+[gd_scene load_steps=8 format=3 uid="uid://yhj547kt6ac5"]
 
 [ext_resource type="Texture2D" uid="uid://bll1kcw71nbou" path="res://Assets/Boss1/SouldbinderXalthar.png" id="1_4bj6e"]
+[ext_resource type="Script" path="res://Characters/SoulbinderXalthar/SoulbinderXalthar.cs" id="1_xqpc4"]
 [ext_resource type="PackedScene" uid="uid://xiop66rwfrek" path="res://Components/HealthComponent/HealthComponent.tscn" id="2_5b2tl"]
 [ext_resource type="PackedScene" uid="uid://c2nrqq0g2cyny" path="res://Components/Hurtbox/Hurtbox.tscn" id="3_5ri6r"]
+[ext_resource type="PackedScene" uid="uid://dmu1coct24dop" path="res://Components/PuddleCasterComponent/PuddleCasterComponent.tscn" id="4_pen31"]
+[ext_resource type="PackedScene" uid="uid://dgv8iiyxlmu44" path="res://Components/BoltCasterComponent/BoltCasterComponent.tscn" id="5_rn76o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fesqn"]
 radius = 196.0
 height = 466.0
 
 [node name="Soulbinder Xalthar" type="CharacterBody2D"]
-collision_layer = 31
-collision_mask = 31
+collision_layer = 12
+collision_mask = 11
+script = ExtResource("1_xqpc4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_4bj6e")
@@ -19,6 +23,8 @@ texture = ExtResource("1_4bj6e")
 maxHealth = 2000.0
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_5ri6r")]
+collision_layer = 0
+collision_mask = 8
 healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
@@ -28,5 +34,9 @@ shape = SubResource("CapsuleShape2D_fesqn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 25)
 shape = SubResource("CapsuleShape2D_fesqn")
+
+[node name="PuddleCasterComponent" parent="." instance=ExtResource("4_pen31")]
+
+[node name="BoltCasterComponent" parent="." instance=ExtResource("5_rn76o")]
 
 [editable path="Hurtbox"]

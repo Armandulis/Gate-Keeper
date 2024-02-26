@@ -69,12 +69,6 @@ public partial class DamageMeter : Node
                 }
                 index++;
             }
-            // foreach (SpellMetadata spellMetadata in spellMetadataList)
-            // {
-            //     totalDamage += spellMetadata.actualValue;
-            // }
-			// GD.Print( "DPS: " + (totalDamage/dpsTimer));
-			// GD.Print( "Total Damage: " + totalDamage);
 		}
 	}
 

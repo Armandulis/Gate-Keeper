@@ -41,8 +41,8 @@ script = ExtResource("1_s537b")
 sprite_frames = SubResource("SpriteFrames_jvrwm")
 
 [node name="ImpactDetector" type="Area2D" parent="."]
-collision_layer = 28
-collision_mask = 28
+collision_layer = 24
+collision_mask = 0
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ImpactDetector"]

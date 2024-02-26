@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://0d3l0qcb6cdy"]
+
+[ext_resource type="Script" path="res://Components/DamageFloatComponent/DamageFloatComponent.cs" id="1_m1qxe"]
+
+[node name="DamageFloatComponent" type="Node2D"]
+script = ExtResource("1_m1qxe")

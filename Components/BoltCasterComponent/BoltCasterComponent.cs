@@ -6,13 +6,11 @@ using System.Runtime;
 public partial class BoltCasterComponent : Node2D
 {
 	private bool isOnCooldown = false;
-	private Player player;
 	private Timer timer;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		player = GetOwner<Player>();
 		timer = (Timer)FindChild("CooldownTimer");
 	}
 
@@ -25,7 +23,17 @@ public partial class BoltCasterComponent : Node2D
 	{
 		if( !isOnCooldown )
 		{
-			Rpc("CastBolt", GetGlobalMousePosition());
+			
+			if( GetParentOrNull<Player>() == null )
+			{
+				Rpc("CastBolt", Core.instance.GetNearestPlayer(this).GlobalPosition, 1);
+			}
+			else
+			{
+				Rpc("CastBolt", GetGlobalMousePosition(), 1);
+			}
+			
+			
 		}
 	}
 
@@ -36,7 +44,7 @@ public partial class BoltCasterComponent : Node2D
 
 	
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
-	private void CastBolt(Vector2 mousePos)
+	private void CastBolt(Vector2 aim, int cooldown)
 	{
 			// if(this.multiplayerSyncronizer.GetMultiplayerAuthority() != this.Multiplayer.GetUniqueId())
 			// {
@@ -46,11 +54,12 @@ public partial class BoltCasterComponent : Node2D
 			Bolt instance = (Bolt)scene.Instantiate();
 			
 			instance.Position = GetParent<Node2D>().GlobalPosition;
-			instance.aim = GlobalPosition.DirectionTo( mousePos);
+			instance.aim = GlobalPosition.DirectionTo( aim);
+		
 			
 			AddChild(instance);
 			instance.TopLevel = true;
-			timer.Start( 1 );
+			timer.Start( cooldown);
 			isOnCooldown = true;
 	}
 }

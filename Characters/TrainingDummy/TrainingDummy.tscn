@@ -130,7 +130,7 @@ position = Vector2(-29, -42)
 wait_time = 5.0
 autostart = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Train"]]
 shape = SubResource("CapsuleShape2D_ualew")
 
 [editable path="Hurtbox"]
