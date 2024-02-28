@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://drxraj5lp64mo"]
+
+[ext_resource type="PackedScene" uid="uid://dosiislku3j4r" path="res://DamageDetails.tscn" id="1_fwfcn"]
+[ext_resource type="PackedScene" uid="uid://byw7j1evdu7r2" path="res://UI/PlayerBar/PlayerHealthBar.tscn" id="2_3iypi"]
+[ext_resource type="PackedScene" uid="uid://br5ovdyixy12o" path="res://UI/PlayerBar/PlayerPortrateBar.tscn" id="2_tyes2"]
+[ext_resource type="PackedScene" uid="uid://mcq8yyd0njgv" path="res://UI/PlayerBar/PlayerExperienceBar.tscn" id="4_wm03t"]
+
+[node name="Interface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DamageDetails" parent="." instance=ExtResource("1_fwfcn")]
+layout_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1, 0)
+layout_direction = 1
+layout_mode = 1
+offset_right = 202.0
+offset_bottom = 64.0
+scale = Vector2(2, 2)
+
+[node name="PlayerPortrateBar" parent="HBoxContainer" instance=ExtResource("2_tyes2")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="PlayerHealthBar" parent="HBoxContainer/VBoxContainer" instance=ExtResource("2_3iypi")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="PlayerExperienceBar" parent="HBoxContainer/VBoxContainer" instance=ExtResource("4_wm03t")]
+layout_mode = 2

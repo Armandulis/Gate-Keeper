@@ -27,6 +27,7 @@ text = "player 1 damage done: 10920
 player 2 damage done: 2301"
 
 [node name="1" type="Label" parent="."]
+layout_mode = 0
 offset_left = 768.0
 offset_top = 54.0
 offset_right = 1160.0

@@ -21,6 +21,11 @@ Core="*res://Scripts/Core.cs"
 DamageMeter="*res://Scripts/DamageMeter.cs"
 GameManager="*res://Scripts/GameManager.cs"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [dotnet]
 
 project/assembly_name="Gate Keeper"
@@ -68,6 +73,10 @@ ui_down={
 2d_physics/layer_4="Projectile-Player"
 2d_physics/layer_5="Projectile-Enemy"
 2d_physics/layer_6="Bonus"
+
+[navigation]
+
+2d/description=""
 
 [rendering]
 

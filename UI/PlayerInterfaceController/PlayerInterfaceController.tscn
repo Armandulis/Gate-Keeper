@@ -1,11 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://kf84aqaldah2"]
 
-[ext_resource type="PackedScene" uid="uid://dosiislku3j4r" path="res://DamageDetails.tscn" id="1_uujpj"]
+[ext_resource type="PackedScene" uid="uid://drxraj5lp64mo" path="res://UI/Interface.tscn" id="1_3e846"]
 
 [node name="PlayerInterfaceController" type="CanvasLayer"]
 
-[node name="DamageDetails" parent="." instance=ExtResource("1_uujpj")]
-offset_left = -1152.0
-offset_top = 1.0
-offset_right = 5.0
-offset_bottom = 650.0
+[node name="Interface" parent="." instance=ExtResource("1_3e846")]

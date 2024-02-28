@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ceovilh3ucdil"]
+[gd_scene load_steps=5 format=3 uid="uid://ceovilh3ucdil"]
 
 [ext_resource type="PackedScene" uid="uid://cd1iosk5d2fm0" path="res://Characters/Player/Player.tscn" id="1_2tndx"]
 [ext_resource type="PackedScene" uid="uid://dhslwybf7s066" path="res://Scenes/RoomCastle.tscn" id="1_5bioy"]
 [ext_resource type="Script" path="res://Scenes/SceneManager.cs" id="1_m6s07"]
-[ext_resource type="PackedScene" uid="uid://yhj547kt6ac5" path="res://Characters/SoulbinderXalthar/SoulbinderXalthar.tscn" id="5_l8h4k"]
 [ext_resource type="PackedScene" uid="uid://uf773c5s2pes" path="res://Characters/TrainingDummy/TrainingDummy.tscn" id="5_tkwhh"]
 
 [node name="World" type="Node2D"]
@@ -30,9 +29,6 @@ position = Vector2(152, 202.333)
 
 [node name="4" type="Node2D" parent="PlayerSpawnPoints" groups=["PlayerSpawnPoints"]]
 position = Vector2(93.3333, 200.667)
-
-[node name="Soulbinder Xalthar" parent="." instance=ExtResource("5_l8h4k")]
-position = Vector2(549.333, 293.667)
 
 [node name="TrainingDummy" parent="." instance=ExtResource("5_tkwhh")]
 position = Vector2(202.667, 97)

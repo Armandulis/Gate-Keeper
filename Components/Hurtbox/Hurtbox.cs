@@ -38,8 +38,6 @@ public partial class Hurtbox : Area2D
 
  			if (dotRemainingTimes[dot] <= 0)
             {
-				
-				GD.Print("inside loop" + dot.id);
                 healthComponent.Damage(dot);
 
                 // Reset remaining time for the next interval
@@ -74,13 +72,10 @@ public partial class Hurtbox : Area2D
 
 	public void OnHurtboxAreaExited(Hitbox hitbox)
 	{	
-		GD.Print(hitbox.spellMetadata.spellId);
 		if(hitbox == null || !hitbox.spellMetadata.isAOEDot )
 		{
 			return;
 		}
-		
-		GD.Print("leavbing eara" + hitbox.spellMetadata.id);
 
 		dots.Remove(hitbox.spellMetadata.id);
 		dotRemainingTimes.Remove(hitbox.spellMetadata);
