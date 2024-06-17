@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyjotpufnihke"]
+
+[ext_resource type="Script" path="res://Components/Spells/QuantumMage/GravitonBuffComponent/GravitonBuffComponent.cs" id="1_01b7q"]
+
+[node name="GravitonBuffComponent" type="Node2D"]
+script = ExtResource("1_01b7q")

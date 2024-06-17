@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjaso6cxop203"]
+
+[ext_resource type="Script" path="res://Components/Spells/QuantumMage/SingularityCasterComponent/SingularityCasterComponent.cs" id="1_2e0if"]
+[ext_resource type="PackedScene" uid="uid://dm1w8v55i2hft" path="res://Components/CastBarComponent/CastBarComponent.tscn" id="7_m0ddk"]
+
+[node name="SingularityCasterComponent" type="Node2D" node_paths=PackedStringArray("castBarComponent")]
+script = ExtResource("1_2e0if")
+castBarComponent = NodePath("CastBarComponent")
+
+[node name="CastBarComponent" parent="." instance=ExtResource("7_m0ddk")]
+position = Vector2(-29, -43)

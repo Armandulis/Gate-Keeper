@@ -126,10 +126,6 @@ vframes = 3
 [node name="CastBarComponent" parent="." instance=ExtResource("5_net6k")]
 position = Vector2(-29, -42)
 
-[node name="CastTime" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Train"]]
 shape = SubResource("CapsuleShape2D_ualew")
 

@@ -1,12 +1,9 @@
 using Godot;
-using System;
-using System.ComponentModel;
 
 public partial class CastBarComponent : Node2D
 {
 	[Export]
-	public ProgressBar castBar;
-
+	public ProgressBar progressBar;
 	
 	[Export]
 	public Sprite2D interuptIcon;
@@ -15,29 +12,49 @@ public partial class CastBarComponent : Node2D
 
 	private int interuptsNeeded;
 
-	// Called when the node enters the scene tree for the first time.
+	private bool isCasting = false;
+
+	[Signal]
+	public delegate void CastFinishedEventHandler();
+
 	public override void _Ready()
 	{
-		TrainingDummy trainingDummy = GetParent<TrainingDummy>();
-		castTimer = (Timer)trainingDummy.FindChild("CastTime");
-		interuptsNeeded = Core.instance.GetTotalPlayers();
-
-		// for (int i = 0; i < 5; i++)
-		// {
-		// 	var scene = GD.Load<PackedScene>("res:///Components/CastBarComponent/InteruptIcon.tscn");
-		// 	Node2D instance = (Node2D)scene.Instantiate();
-			
-		// 	float offset = i * 10;
-		// 	instance.Position = GlobalPosition;
-			
-		// 	// instance.Position. += offset;
-		// 	AddChild(instance);
-		// }
+		this.Hide();
+		castTimer = (Timer)FindChild("CastTime");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		castBar.Value = (5 - castTimer.TimeLeft) / 5 * 100;
+		if( isCasting == true )
+		{
+			progressBar.Value = (2 - castTimer.TimeLeft) / 2 * 100;
+		}
+		else
+		{
+			progressBar.Value = 0;
+		}
+	}
+	
+	public void startCast()
+	{
+		this.Show();
+		isCasting = true;
+		castTimer.Start( 2 );
+	}
+
+	public void castInerupted()
+	{
+		this.Hide();
+		isCasting = false;
+		castTimer.Stop();
+		progressBar.Value = 0;
+	}
+
+	public void _OnCastTimeTimeout()
+	{
+		this.Hide();
+		EmitSignal(SignalName.CastFinished);
+		progressBar.Value = 100;
+		castTimer.Stop();
 	}
 }

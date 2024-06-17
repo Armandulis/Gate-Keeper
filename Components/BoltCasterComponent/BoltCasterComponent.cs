@@ -31,7 +31,7 @@ public partial class BoltCasterComponent : Node2D
 			}
 			else
 			{
-				Rpc("CastBolt", GetGlobalMousePosition(), 1);
+				Rpc(method: "CastBolt", GetGlobalMousePosition(), 1);
 			}
 			
 			

@@ -25,7 +25,10 @@ public partial class Player : CharacterBody2D
     public MultiplayerSynchronizer multiplayerSyncronizer;
     // public DamageDetails damageDetails;
 	private Godot.Camera2D camera;
+	public bool isMoving => isRunning || isDashing;
 
+	[Export]
+	public GravitonBuffComponent gravitonBuffComponent;
 
     public override void _Ready()
     {
@@ -66,6 +69,11 @@ public partial class Player : CharacterBody2D
 
     public override void _Process(double delta)
 	{
+	}
+
+	public bool isMultiplayerAuthority()
+	{
+		return multiplayerSyncronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId();
 	}
 
 	public override void _PhysicsProcess(double delta)
