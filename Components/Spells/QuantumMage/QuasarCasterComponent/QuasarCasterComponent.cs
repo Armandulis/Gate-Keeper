@@ -1,25 +1,22 @@
 using Godot;
 using System;
-using System.Reflection.Metadata.Ecma335;
 
-public partial class SingularityCasterComponent : Node2D
+public partial class QuasarCasterComponent : Node2D
 {
 	
 	[Export]
 	public CastBarComponent castBarComponent;
-
+	
 	private bool isCasting = false;
 	private bool interruptedCast = false;
 	private Player player;
 	private GravitonBuffComponent gravitonBuffComponent;
-
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		player = (Player)GetParent<Player>();
 		gravitonBuffComponent = player.gravitonBuffComponent;
-
 
 		// ProgressBar progressBar = (ProgressBar)castBarComponent.progressBar;
 		castBarComponent.CastFinished += () => {
@@ -35,26 +32,17 @@ public partial class SingularityCasterComponent : Node2D
 			return;
 		}
 
-		interruptedCast = player.isMoving;
+		// interruptedCast = player.isMoving;
 
-		if( interruptedCast && isCasting)
-		{
-			
-			player.finishedCastingSpell();
-			isCasting = false;
-			castBarComponent.castInerupted();
-		}
+		// if( interruptedCast && isCasting)
+		// {
+		// 	isCasting = false;
+		// 	castBarComponent.castInerupted();
+		// }
 
-		if( Input.IsKeyPressed( Key.Key1 ) && !isCasting && player.tryCastSpell() )
+		if( Input.IsKeyPressed( Key.Key2 ) && !isCasting && player.tryCastSpell() )
 		{
-			if( gravitonBuffComponent.trySpendOn( 2 ) )
-			{
-				castFinished();
-			}
-			else
-			{
 				startCast();	
-			}
 		}
 	}
 
@@ -62,22 +50,21 @@ public partial class SingularityCasterComponent : Node2D
 	public void startCast()
 	{
 			isCasting = true;
-			castBarComponent.startCast( 3 );
+			castBarComponent.startCast( 1 );
 	}
 
 
 	public void castFinished()
 	{
 		isCasting = false;
-		gravitonBuffComponent.addStacks( 0.5f );
-		Rpc(method: "CastSingularity", GetGlobalMousePosition());
+		gravitonBuffComponent.addStacks( 1 );
+		Rpc(method: "CastQuasar", GetGlobalMousePosition());
 		player.finishedCastingSpell();
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
-	private void CastSingularity(Vector2 aim)
+	private void CastQuasar(Vector2 aim)
 	{
-
 			var scene = GD.Load<PackedScene>("res:///Components/BoltCasterComponent/Bolt.tscn");
 			Bolt instance = (Bolt)scene.Instantiate();
 			

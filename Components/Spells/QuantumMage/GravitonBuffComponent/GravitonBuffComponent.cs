@@ -3,7 +3,7 @@ using System;
 
 public partial class GravitonBuffComponent : Node2D
 {
-	private float stacks = 0;
+	private double stacks = 0;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -15,13 +15,13 @@ public partial class GravitonBuffComponent : Node2D
 	{
 	}
 
-	public void addStacks( float amount )
+	public void addStacks( double amount )
 	{
 		stacks += amount;
 	}
 
 
-	private void subtractStacks( float amount )
+	private void subtractStacks( double amount )
 	{
 		stacks -= amount;
 	}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cd1iosk5d2fm0"]
+[gd_scene load_steps=26 format=3 uid="uid://cd1iosk5d2fm0"]
 
 [ext_resource type="Texture2D" uid="uid://b1q58wy5tdoma" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/full spritesheet.png" id="1_awamb"]
 [ext_resource type="Script" path="res://Characters/Player/Player.cs" id="1_m7g1q"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c2nrqq0g2cyny" path="res://Components/Hurtbox/Hurtbox.tscn" id="6_xrngf"]
 [ext_resource type="PackedScene" uid="uid://cjaso6cxop203" path="res://Components/Spells/QuantumMage/SingularityCasterComponent/SingularityCasterComponent.tscn" id="7_7v6x3"]
 [ext_resource type="PackedScene" uid="uid://cyjotpufnihke" path="res://Components/Spells/QuantumMage/GravitonBuffComponent/GravitonBuffComponent.tscn" id="8_11uqu"]
+[ext_resource type="PackedScene" uid="uid://tvj8epxkjoq8" path="res://Components/Spells/QuantumMage/QuasarCasterComponent/QuasarCasterComponent.tscn" id="9_m8jdc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_62vod"]
 radius = 12.0
@@ -119,12 +120,13 @@ properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravitonBuffComponent") groups=["Players"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("globalCooldownTimer", "gravitonBuffComponent") groups=["Players"]]
 scale = Vector2(0.3, 0.3)
 collision_layer = 2
 collision_mask = 7
 floor_stop_on_slope = false
 script = ExtResource("1_m7g1q")
+globalCooldownTimer = NodePath("GlobalCooldown")
 gravitonBuffComponent = NodePath("GravitonBuffComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -166,7 +168,14 @@ replication_config = SubResource("SceneReplicationConfig_msh4y")
 
 [node name="GravitonBuffComponent" parent="." instance=ExtResource("8_11uqu")]
 
+[node name="QuasarCasterComponent" parent="." instance=ExtResource("9_m8jdc")]
+
+[node name="GlobalCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="DashTimer" to="." method="_OnDashTimeout"]
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_OnDashCooldownTimeout"]
+[connection signal="timeout" from="GlobalCooldown" to="." method="_OnGlobalCooldownTimeout"]
 
 [editable path="Hurtbox"]

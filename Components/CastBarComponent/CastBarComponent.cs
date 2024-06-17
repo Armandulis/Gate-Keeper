@@ -35,11 +35,11 @@ public partial class CastBarComponent : Node2D
 		}
 	}
 	
-	public void startCast()
+	public void startCast( double time )
 	{
 		this.Show();
 		isCasting = true;
-		castTimer.Start( 2 );
+		castTimer.Start( time );
 	}
 
 	public void castInerupted()

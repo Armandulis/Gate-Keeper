@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.AccessControl;
 using System.Threading;
 using System.Xml.Schema;
@@ -18,7 +19,9 @@ public partial class Player : CharacterBody2D
 	
 	public Godot.Timer dashTimer;
 	public Godot.Timer dashCooldownTimer;
-
+	[Export]
+	public Godot.Timer globalCooldownTimer;
+	
 	private PlayerMovementComponent playerMovementComponent;
 
 	private BoltCasterComponent boltCasterComponent;
@@ -29,6 +32,8 @@ public partial class Player : CharacterBody2D
 
 	[Export]
 	public GravitonBuffComponent gravitonBuffComponent;
+    private bool isInGlobalCooldown = false;
+    private bool isCasting = false;
 
     public override void _Ready()
     {
@@ -54,12 +59,38 @@ public partial class Player : CharacterBody2D
 		}
 		this.HandleAnimations();
 	}
+	public void spellCasted()
+	{
+		isCasting = true;
+		this.isInGlobalCooldown = true;
+		globalCooldownTimer.Start( 0.5 );
+	}
+
+	public void finishedCastingSpell()
+	{
+		isCasting = false;
+	}
+
+	public bool tryCastSpell()
+	{
+		GD.Print(isCasting);
+		if( !isInGlobalCooldown && !isCasting)
+		{
+			spellCasted();
+			return true;
+		}
+
+		return false;
+	}
+	public void _OnGlobalCooldownTimeout()
+	{
+		this.isInGlobalCooldown = false;
+	}
 
 	public void _OnDashCooldownTimeout()
 	{
 		this.isDashOnCooldown = false;
 	}
-
 
 	public void _OnDashTimeout()
 	{

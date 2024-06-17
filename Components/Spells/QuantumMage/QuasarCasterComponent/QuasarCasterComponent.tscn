@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://tvj8epxkjoq8"]
+
+[ext_resource type="Script" path="res://Components/Spells/QuantumMage/QuasarCasterComponent/QuasarCasterComponent.cs" id="1_cmrlf"]
+[ext_resource type="PackedScene" uid="uid://dm1w8v55i2hft" path="res://Components/CastBarComponent/CastBarComponent.tscn" id="2_o128u"]
+
+[node name="QuasarCasterComponent" type="Node2D" node_paths=PackedStringArray("castBarComponent")]
+script = ExtResource("1_cmrlf")
+castBarComponent = NodePath("CastBarComponent")
+
+[node name="CastBarComponent" parent="." instance=ExtResource("2_o128u")]
