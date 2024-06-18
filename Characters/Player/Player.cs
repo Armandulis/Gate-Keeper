@@ -73,8 +73,7 @@ public partial class Player : CharacterBody2D
 
 	public bool tryCastSpell()
 	{
-		GD.Print(isCasting);
-		if( !isInGlobalCooldown && !isCasting)
+		if( !isInGlobalCooldown && !isCasting )
 		{
 			spellCasted();
 			return true;

@@ -34,8 +34,19 @@ public partial class DamageFloatComponent : Node2D
 	public void HandleDamageFloat( float amount )
 	{
 		Godot.Label label = new Godot.Label();
+
 		label.Text = amount.ToString();
 		AddChild(label);
 		currentFloaters.Add(label);
+		
+		Random rnd = new Random();
+		int side  = rnd.Next(0, 2);
+		if(side == 1)
+		{
+			Vector2 newPosition = label.Position;
+			newPosition.X -= 50;
+			label.Position = newPosition;
+		}
+	
 	}
 }

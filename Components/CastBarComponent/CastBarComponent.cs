@@ -17,6 +17,8 @@ public partial class CastBarComponent : Node2D
 	[Signal]
 	public delegate void CastFinishedEventHandler();
 
+	private double castDuration = 0;
+
 	public override void _Ready()
 	{
 		this.Hide();
@@ -27,7 +29,7 @@ public partial class CastBarComponent : Node2D
 	{
 		if( isCasting == true )
 		{
-			progressBar.Value = (2 - castTimer.TimeLeft) / 2 * 100;
+			progressBar.Value = (castDuration - castTimer.TimeLeft) / castDuration * 100;
 		}
 		else
 		{
@@ -40,6 +42,7 @@ public partial class CastBarComponent : Node2D
 		this.Show();
 		isCasting = true;
 		castTimer.Start( time );
+		castDuration = time;
 	}
 
 	public void castInerupted()

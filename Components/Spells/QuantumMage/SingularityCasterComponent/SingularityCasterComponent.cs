@@ -62,6 +62,7 @@ public partial class SingularityCasterComponent : Node2D
 	public void startCast()
 	{
 			isCasting = true;
+			
 			castBarComponent.startCast( 3 );
 	}
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cd1iosk5d2fm0"]
+[gd_scene load_steps=27 format=3 uid="uid://cd1iosk5d2fm0"]
 
 [ext_resource type="Texture2D" uid="uid://b1q58wy5tdoma" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/full spritesheet.png" id="1_awamb"]
 [ext_resource type="Script" path="res://Characters/Player/Player.cs" id="1_m7g1q"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cjaso6cxop203" path="res://Components/Spells/QuantumMage/SingularityCasterComponent/SingularityCasterComponent.tscn" id="7_7v6x3"]
 [ext_resource type="PackedScene" uid="uid://cyjotpufnihke" path="res://Components/Spells/QuantumMage/GravitonBuffComponent/GravitonBuffComponent.tscn" id="8_11uqu"]
 [ext_resource type="PackedScene" uid="uid://tvj8epxkjoq8" path="res://Components/Spells/QuantumMage/QuasarCasterComponent/QuasarCasterComponent.tscn" id="9_m8jdc"]
+[ext_resource type="PackedScene" uid="uid://dhfrqk1rukqir" path="res://Components/Spells/QuantumMage/QuantumFluxCasterComponent/QuantumFluxCasterComponent.tscn" id="10_n7kym"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_62vod"]
 radius = 12.0
@@ -173,6 +174,8 @@ replication_config = SubResource("SceneReplicationConfig_msh4y")
 [node name="GlobalCooldown" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="QuantumFluxCasterComponent" parent="." instance=ExtResource("10_n7kym")]
 
 [connection signal="timeout" from="DashTimer" to="." method="_OnDashTimeout"]
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_OnDashCooldownTimeout"]
