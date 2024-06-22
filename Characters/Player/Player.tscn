@@ -164,6 +164,14 @@ spellCastManagerComponent = NodePath("../SpellCastManagerComponent")
 [node name="SpellCastManagerComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_5uvj5")]
 player = NodePath("..")
 
+[node name="MechanicArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MechanicArea"]
+position = Vector2(3.33333, 0)
+shape = SubResource("CapsuleShape2D_61tp5")
+
 [connection signal="timeout" from="DashTimer" to="." method="_OnDashTimeout"]
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_OnDashCooldownTimeout"]
 

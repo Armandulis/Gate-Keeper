@@ -49,7 +49,5 @@ public partial class PuddleCasterComponent : Node2D
 			
 			AddChild(instance2);
 			instance2.TopLevel = true;
-			// timer.Start( 1 );
-			// isOnCooldown = true;
 	}
 }

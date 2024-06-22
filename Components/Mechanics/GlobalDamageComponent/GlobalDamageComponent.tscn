@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cinvbu173jrb4"]
+
+[ext_resource type="Script" path="res://Components/Mechanics/GlobalDamageComponent/GlobalDamageComponent.cs" id="1_y6eei"]
+[ext_resource type="PackedScene" uid="uid://beuryv8j26jih" path="res://Components/Hitbox/Hitbox.tscn" id="2_ufj2u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txs3q"]
+size = Vector2(9999, 9999)
+
+[node name="GlobalDamageComponent" type="Node2D"]
+script = ExtResource("1_y6eei")
+
+[node name="Hitbox" parent="." instance=ExtResource("2_ufj2u")]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+rotation = -1.57736
+shape = SubResource("RectangleShape2D_txs3q")
+
+[editable path="Hitbox"]

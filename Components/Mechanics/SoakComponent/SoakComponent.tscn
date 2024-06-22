@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://suee0phxnqvw"]
+
+[ext_resource type="Script" path="res://Components/Mechanics/SoakComponent/SoakComponent.cs" id="1_cf0mm"]
+[ext_resource type="PackedScene" uid="uid://dm1w8v55i2hft" path="res://Components/CastBarComponent/CastBarComponent.tscn" id="2_728fu"]
+
+[node name="SoakComponent" type="Node2D" node_paths=PackedStringArray("castBarComponent")]
+script = ExtResource("1_cf0mm")
+castBarComponent = NodePath("CastBarComponent")
+
+[node name="CastBarComponent" parent="." instance=ExtResource("2_728fu")]
