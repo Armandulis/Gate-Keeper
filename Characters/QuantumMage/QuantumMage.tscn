@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://5j4w0j1entl1"]
+
+[ext_resource type="PackedScene" uid="uid://dhfrqk1rukqir" path="res://Components/Spells/QuantumMage/QuantumFluxCasterComponent/QuantumFluxCasterComponent.tscn" id="1_0daux"]
+[ext_resource type="Script" path="res://Characters/QuantumMage/QuantumMage.cs" id="1_3by33"]
+[ext_resource type="PackedScene" uid="uid://tvj8epxkjoq8" path="res://Components/Spells/QuantumMage/QuasarCasterComponent/QuasarCasterComponent.tscn" id="2_1gl4o"]
+[ext_resource type="PackedScene" uid="uid://cyjotpufnihke" path="res://Components/Spells/QuantumMage/GravitonBuffComponent/GravitonBuffComponent.tscn" id="3_gpnfu"]
+[ext_resource type="PackedScene" uid="uid://cjaso6cxop203" path="res://Components/Spells/QuantumMage/SingularityCasterComponent/SingularityCasterComponent.tscn" id="4_i7iwy"]
+
+[node name="QuantumMage" type="Node2D" node_paths=PackedStringArray("gravitonBuffComponent")]
+script = ExtResource("1_3by33")
+gravitonBuffComponent = NodePath("GravitonBuffComponent")
+
+[node name="QuantumFluxCasterComponent" parent="." instance=ExtResource("1_0daux")]
+
+[node name="QuasarCasterComponent" parent="." instance=ExtResource("2_1gl4o")]
+
+[node name="GravitonBuffComponent" parent="." instance=ExtResource("3_gpnfu")]
+
+[node name="SingularityCasterComponent" parent="." instance=ExtResource("4_i7iwy")]

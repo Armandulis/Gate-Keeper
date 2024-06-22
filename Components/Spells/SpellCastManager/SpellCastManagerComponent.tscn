@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjq6c54dx6fas"]
+
+[ext_resource type="Script" path="res://Components/Spells/SpellCastManager/SpellCastManagerComponent.cs" id="1_11ac5"]
+
+[node name="SpellCastManagerComponent" type="Node2D" node_paths=PackedStringArray("globalCooldownTimer")]
+script = ExtResource("1_11ac5")
+globalCooldownTimer = NodePath("GlobalCooldown")
+
+[node name="GlobalCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="GlobalCooldown" to="." method="_OnGlobalCooldownTimeout"]
