@@ -9,16 +9,18 @@ public partial class QuasarCasterComponent : Node2D
 	
 	private bool isCasting = false;
 	private bool interruptedCast = false;
-	private Player player;
+	private QuantumMage quantumMage;
 	private GravitonBuffComponent gravitonBuffComponent;
+	private SpellCastManagerComponent spellCastManagerComponent;
+	
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		player = (Player)GetParent<Player>();
-		gravitonBuffComponent = player.gravitonBuffComponent;
+		quantumMage = (QuantumMage)GetParent<QuantumMage>();
+		gravitonBuffComponent = quantumMage.gravitonBuffComponent;
+		spellCastManagerComponent = quantumMage.spellCastManagerComponent;
 
-		// ProgressBar progressBar = (ProgressBar)castBarComponent.progressBar;
 		castBarComponent.CastFinished += () => {
 			castFinished();
 		};
@@ -27,20 +29,12 @@ public partial class QuasarCasterComponent : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if( !player.isMultiplayerAuthority() )
+		if( !spellCastManagerComponent.player.isMultiplayerAuthority() )
 		{
 			return;
 		}
 
-		// interruptedCast = player.isMoving;
-
-		// if( interruptedCast && isCasting)
-		// {
-		// 	isCasting = false;
-		// 	castBarComponent.castInerupted();
-		// }
-
-		if( Input.IsKeyPressed( Key.Key2 ) && !isCasting && player.tryCastSpell() )
+		if( Input.IsKeyPressed( Key.Key2 ) && !isCasting && spellCastManagerComponent.tryCastSpell() )
 		{
 				startCast();	
 		}
@@ -59,7 +53,7 @@ public partial class QuasarCasterComponent : Node2D
 		isCasting = false;
 		gravitonBuffComponent.addStacks( 1 );
 		Rpc(method: "CastQuasar", GetGlobalMousePosition());
-		player.finishedCastingSpell();
+		spellCastManagerComponent.finishedCastingSpell();
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
@@ -71,7 +65,7 @@ public partial class QuasarCasterComponent : Node2D
 			instance.Position = GetParent<Node2D>().GlobalPosition;
 			instance.aim = GlobalPosition.DirectionTo( aim);
 		
-			AddChild(instance);
+			GetParent<Node2D>().AddChild(instance);
 			instance.TopLevel = true;
 	}
 }

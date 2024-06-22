@@ -1,15 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://cd1iosk5d2fm0"]
+[gd_scene load_steps=24 format=3 uid="uid://cd1iosk5d2fm0"]
 
 [ext_resource type="Texture2D" uid="uid://b1q58wy5tdoma" path="res://Assets/v1.1 dungeon crawler 16X16 pixel pack/full spritesheet.png" id="1_awamb"]
 [ext_resource type="Script" path="res://Characters/Player/Player.cs" id="1_m7g1q"]
 [ext_resource type="PackedScene" uid="uid://cccq4cn5qwvrc" path="res://Components/PlayerMovementComponent/PlayerMovementComponent.tscn" id="3_6vxlg"]
 [ext_resource type="PackedScene" uid="uid://xiop66rwfrek" path="res://Components/HealthComponent/HealthComponent.tscn" id="4_d6umo"]
-[ext_resource type="PackedScene" uid="uid://dgv8iiyxlmu44" path="res://Components/BoltCasterComponent/BoltCasterComponent.tscn" id="5_4pavk"]
+[ext_resource type="PackedScene" uid="uid://5j4w0j1entl1" path="res://Characters/QuantumMage/QuantumMage.tscn" id="6_653hu"]
 [ext_resource type="PackedScene" uid="uid://c2nrqq0g2cyny" path="res://Components/Hurtbox/Hurtbox.tscn" id="6_xrngf"]
-[ext_resource type="PackedScene" uid="uid://cjaso6cxop203" path="res://Components/Spells/QuantumMage/SingularityCasterComponent/SingularityCasterComponent.tscn" id="7_7v6x3"]
-[ext_resource type="PackedScene" uid="uid://cyjotpufnihke" path="res://Components/Spells/QuantumMage/GravitonBuffComponent/GravitonBuffComponent.tscn" id="8_11uqu"]
-[ext_resource type="PackedScene" uid="uid://tvj8epxkjoq8" path="res://Components/Spells/QuantumMage/QuasarCasterComponent/QuasarCasterComponent.tscn" id="9_m8jdc"]
-[ext_resource type="PackedScene" uid="uid://dhfrqk1rukqir" path="res://Components/Spells/QuantumMage/QuantumFluxCasterComponent/QuantumFluxCasterComponent.tscn" id="10_n7kym"]
+[ext_resource type="PackedScene" uid="uid://cjq6c54dx6fas" path="res://Components/Spells/SpellCastManager/SpellCastManagerComponent.tscn" id="7_5uvj5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_62vod"]
 radius = 12.0
@@ -121,14 +118,12 @@ properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("globalCooldownTimer", "gravitonBuffComponent") groups=["Players"]]
+[node name="Player" type="CharacterBody2D" groups=["Players"]]
 scale = Vector2(0.3, 0.3)
 collision_layer = 2
 collision_mask = 7
 floor_stop_on_slope = false
 script = ExtResource("1_m7g1q")
-globalCooldownTimer = NodePath("GlobalCooldown")
-gravitonBuffComponent = NodePath("GravitonBuffComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 6)
@@ -147,8 +142,6 @@ position_smoothing_enabled = true
 [node name="HealthComponent" parent="." instance=ExtResource("4_d6umo")]
 maxHealth = 300.0
 
-[node name="BoltCasterComponent" parent="." instance=ExtResource("5_4pavk")]
-
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_xrngf")]
 collision_layer = 3
 collision_mask = 20
@@ -165,20 +158,13 @@ replication_config = SubResource("SceneReplicationConfig_msh4y")
 
 [node name="DashCooldownTimer" type="Timer" parent="."]
 
-[node name="SingularityCasterComponent" parent="." instance=ExtResource("7_7v6x3")]
+[node name="QuantumMage" parent="." node_paths=PackedStringArray("spellCastManagerComponent") instance=ExtResource("6_653hu")]
+spellCastManagerComponent = NodePath("../SpellCastManagerComponent")
 
-[node name="GravitonBuffComponent" parent="." instance=ExtResource("8_11uqu")]
-
-[node name="QuasarCasterComponent" parent="." instance=ExtResource("9_m8jdc")]
-
-[node name="GlobalCooldown" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[node name="QuantumFluxCasterComponent" parent="." instance=ExtResource("10_n7kym")]
+[node name="SpellCastManagerComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_5uvj5")]
+player = NodePath("..")
 
 [connection signal="timeout" from="DashTimer" to="." method="_OnDashTimeout"]
 [connection signal="timeout" from="DashCooldownTimer" to="." method="_OnDashCooldownTimeout"]
-[connection signal="timeout" from="GlobalCooldown" to="." method="_OnGlobalCooldownTimeout"]
 
 [editable path="Hurtbox"]

@@ -19,28 +19,19 @@ public partial class Player : CharacterBody2D
 	
 	public Godot.Timer dashTimer;
 	public Godot.Timer dashCooldownTimer;
-	[Export]
-	public Godot.Timer globalCooldownTimer;
 	
 	private PlayerMovementComponent playerMovementComponent;
 
-	private BoltCasterComponent boltCasterComponent;
     public MultiplayerSynchronizer multiplayerSyncronizer;
     // public DamageDetails damageDetails;
 	private Godot.Camera2D camera;
 	public bool isMoving => isRunning || isDashing;
-
-	[Export]
-	public GravitonBuffComponent gravitonBuffComponent;
-    private bool isInGlobalCooldown = false;
-    private bool isCasting = false;
 
     public override void _Ready()
     {
 		this.camera = (Godot.Camera2D)FindChild("Camera2D");
 		this.multiplayerSyncronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
 		this.multiplayerSyncronizer.SetMultiplayerAuthority(int.Parse(Name ));
-		this.boltCasterComponent = (BoltCasterComponent)FindChild("BoltCasterComponent");
 		this.animatedSprite2D = (AnimatedSprite2D) FindChild("AnimatedSprite2D");
 		this.playerMovementComponent = (PlayerMovementComponent)FindChild("PlayerMovementComponent");
 		
@@ -59,32 +50,7 @@ public partial class Player : CharacterBody2D
 		}
 		this.HandleAnimations();
 	}
-	public void spellCasted()
-	{
-		isCasting = true;
-		this.isInGlobalCooldown = true;
-		globalCooldownTimer.Start( 0.5 );
-	}
 
-	public void finishedCastingSpell()
-	{
-		isCasting = false;
-	}
-
-	public bool tryCastSpell()
-	{
-		if( !isInGlobalCooldown && !isCasting )
-		{
-			spellCasted();
-			return true;
-		}
-
-		return false;
-	}
-	public void _OnGlobalCooldownTimeout()
-	{
-		this.isInGlobalCooldown = false;
-	}
 
 	public void _OnDashCooldownTimeout()
 	{
@@ -108,14 +74,9 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if(this.multiplayerSyncronizer.GetMultiplayerAuthority() != this.Multiplayer.GetUniqueId())
+		if(multiplayerSyncronizer.GetMultiplayerAuthority() != Multiplayer.GetUniqueId())
 		{
 			return;
-		}
-		
-		if(Input.IsMouseButtonPressed( MouseButton.Left ) )
-		{
-			boltCasterComponent.Cast();
 		}
 
 		this.playerMovementComponent.Execute(this);
@@ -154,8 +115,6 @@ public partial class Player : CharacterBody2D
 			{	
 				this.HandleDash();
 			}
-		
-			// timer.Start( 1 );
 		
 		this.HandleAnimations();
 	}
@@ -204,14 +163,5 @@ public partial class Player : CharacterBody2D
 		{
 			this.animatedSprite2D.FlipH = true;
 		}
-	}
-
-	
-	public Node LoadAction(string name)
-	{
-		PackedScene scene = GD.Load<PackedScene>("res://Components//" + name + "// " + name + ".tscn");
-		Node sceneNode = scene.Instantiate();
-		AddChild(sceneNode);
-		return sceneNode;
 	}
 }

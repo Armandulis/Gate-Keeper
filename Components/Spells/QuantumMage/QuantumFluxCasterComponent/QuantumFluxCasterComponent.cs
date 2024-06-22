@@ -6,22 +6,23 @@ public partial class QuantumFluxCasterComponent : Node2D
 {	
 	[Export]
 	private Timer cooldownTimer;
-	private Player player;
+	private QuantumMage quantumMage;
 	private GravitonBuffComponent gravitonBuffComponent;
 	private int stacks = 3;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		player = (Player)GetParent<Player>();
-		gravitonBuffComponent = player.gravitonBuffComponent;
+		quantumMage = (QuantumMage)GetParent<QuantumMage>();
+		
+		gravitonBuffComponent = quantumMage.gravitonBuffComponent;
 
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if( !player.isMultiplayerAuthority() )
+		if( !quantumMage.spellCastManagerComponent.player.isMultiplayerAuthority() )
 		{
 			return;
 		}
@@ -61,7 +62,7 @@ public partial class QuantumFluxCasterComponent : Node2D
 			instance.Position = GetParent<Node2D>().GlobalPosition;
 			instance.aim = GlobalPosition.DirectionTo( aim);
 		
-			AddChild(instance);
+			GetParent<Node2D>().AddChild(instance);
 			instance.TopLevel = true;
 	}
 }

@@ -10,15 +10,16 @@ public partial class SingularityCasterComponent : Node2D
 
 	private bool isCasting = false;
 	private bool interruptedCast = false;
-	private Player player;
+	private QuantumMage quantumMage;
 	private GravitonBuffComponent gravitonBuffComponent;
-
+	private SpellCastManagerComponent spellCastManagerComponent;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		player = (Player)GetParent<Player>();
-		gravitonBuffComponent = player.gravitonBuffComponent;
+		quantumMage = (QuantumMage)GetParent<QuantumMage>();
+		gravitonBuffComponent = quantumMage.gravitonBuffComponent;
+		spellCastManagerComponent = quantumMage.spellCastManagerComponent;
 
 
 		// ProgressBar progressBar = (ProgressBar)castBarComponent.progressBar;
@@ -30,22 +31,22 @@ public partial class SingularityCasterComponent : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if( !player.isMultiplayerAuthority() )
+		if( !spellCastManagerComponent.player.isMultiplayerAuthority() )
 		{
 			return;
 		}
 
-		interruptedCast = player.isMoving;
+		interruptedCast = spellCastManagerComponent.castInterupted();
 
 		if( interruptedCast && isCasting)
 		{
 			
-			player.finishedCastingSpell();
+			spellCastManagerComponent.finishedCastingSpell();
 			isCasting = false;
 			castBarComponent.castInerupted();
 		}
 
-		if( Input.IsKeyPressed( Key.Key1 ) && !isCasting && player.tryCastSpell() )
+		if( Input.IsKeyPressed( Key.Key1 ) && !isCasting && spellCastManagerComponent.tryCastSpell() )
 		{
 			if( gravitonBuffComponent.trySpendOn( 2 ) )
 			{
@@ -72,7 +73,7 @@ public partial class SingularityCasterComponent : Node2D
 		isCasting = false;
 		gravitonBuffComponent.addStacks( 0.5f );
 		Rpc(method: "CastSingularity", GetGlobalMousePosition());
-		player.finishedCastingSpell();
+		spellCastManagerComponent.finishedCastingSpell();
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
@@ -85,7 +86,7 @@ public partial class SingularityCasterComponent : Node2D
 			instance.Position = GetParent<Node2D>().GlobalPosition;
 			instance.aim = GlobalPosition.DirectionTo( aim);
 		
-			AddChild(instance);
+			GetParent<Node2D>().AddChild(instance);
 			instance.TopLevel = true;
 	}
 }
