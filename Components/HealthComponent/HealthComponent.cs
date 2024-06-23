@@ -9,19 +9,17 @@ public partial class HealthComponent : Node2D
 	[Signal]
 	public delegate void DamagedEventHandler( SpellMetadata spellMetadata );
 
+    [Export]
+	public float maxHealth;
+	public float currentHealth ;
+	
+
     public override void _Ready()
     {
 		damageFloatComponent = new DamageFloatComponent();
 		AddChild(damageFloatComponent);
 		currentHealth = maxHealth;
     }
-
-
-
-    [Export]
-	public float maxHealth;
-	public float currentHealth ;
-	
 
 	public float MaxHealth 
 	{
@@ -61,6 +59,7 @@ public partial class HealthComponent : Node2D
 		spellMetadata.actualValue = spellMetadata.value;
 		DamageMeter.instance.AddDamageSpell(spellMetadata);
 		CurrentHealth -= spellMetadata.value;
+		// PlayerHealthBar.instance.HealthChange(maxHealth, currentHealth);
 	}	
 
 	
@@ -83,6 +82,7 @@ public partial class HealthComponent : Node2D
 		else
 		{
 
+			Damage(spellMetadata);
 		}
 	}
 

@@ -33,6 +33,7 @@ public partial class Bolt : CharacterBody2D
 		}
 		else
 		{
+			spellMetadata.value = 100;
 			
 			impactDetector.SetCollisionMaskValue(2, true);
 			impactDetector.SetCollisionMaskValue(4, false);

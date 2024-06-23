@@ -1,10 +1,4 @@
 using Godot;
-using System;
-using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.AccessControl;
-using System.Threading;
-using System.Xml.Schema;
 
 public partial class Player : CharacterBody2D
 {
@@ -23,8 +17,8 @@ public partial class Player : CharacterBody2D
 	private PlayerMovementComponent playerMovementComponent;
 
     public MultiplayerSynchronizer multiplayerSyncronizer;
-    // public DamageDetails damageDetails;
-	private Godot.Camera2D camera;
+
+	private Camera2D camera;
 	public bool isMoving => isRunning || isDashing;
 
     public override void _Ready()
@@ -44,9 +38,6 @@ public partial class Player : CharacterBody2D
 				PackedScene scene = GD.Load<PackedScene>("res://UI/PlayerInterfaceController/PlayerInterfaceController.tscn");
 				Node sceneNode = scene.Instantiate();
 				camera.AddChild(sceneNode);
-				
-				
-			// damageDetails = (DamageDetails)FindChild("DamageDetails");
 		}
 		this.HandleAnimations();
 	}

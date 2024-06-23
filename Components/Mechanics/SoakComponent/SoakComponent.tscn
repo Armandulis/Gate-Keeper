@@ -3,8 +3,15 @@
 [ext_resource type="Script" path="res://Components/Mechanics/SoakComponent/SoakComponent.cs" id="1_cf0mm"]
 [ext_resource type="PackedScene" uid="uid://dm1w8v55i2hft" path="res://Components/CastBarComponent/CastBarComponent.tscn" id="2_728fu"]
 
-[node name="SoakComponent" type="Node2D" node_paths=PackedStringArray("castBarComponent")]
+[node name="SoakComponent" type="Node2D" node_paths=PackedStringArray("castBarComponent", "cooldownTimer")]
 script = ExtResource("1_cf0mm")
 castBarComponent = NodePath("CastBarComponent")
+cooldownTimer = NodePath("CooldownTimer")
 
 [node name="CastBarComponent" parent="." instance=ExtResource("2_728fu")]
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_OnCooldownTimerTimeout"]
