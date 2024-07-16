@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://Components/BoltCasterComponent/BoltCasterComponent.cs" id="1_56fbi"]
 
-[node name="BoltCasterComponent" type="Node2D" node_paths=PackedStringArray("fireRateTimer", "cooldownTimer")]
+[node name="BoltCasterComponent" type="Node2D" node_paths=PackedStringArray("fireRateTimer", "cooldownTimer", "markerTimer")]
 script = ExtResource("1_56fbi")
 fireRateTimer = NodePath("FireRateTimer")
 cooldownTimer = NodePath("CooldownTimer")
+markerTimer = NodePath("MarkerTimer")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 10.0
@@ -15,5 +16,9 @@ autostart = true
 [node name="FireRateTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="MarkerTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="CooldownTimer" to="." method="_OnCooldownTimeout"]
 [connection signal="timeout" from="FireRateTimer" to="." method="_OnFireRateTimerTimeout"]
+[connection signal="timeout" from="MarkerTimer" to="." method="_OnMarkerTimerTimeout"]

@@ -34,11 +34,11 @@ public partial class SoakComponent : Node2D
 	public void castFinished()
 	{
 		isCasting = false;
-		Rpc(method: "CastSingularity", GetGlobalMousePosition());
+		Rpc(method: "CastSingularitys" );
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
-	private void CastSingularity(Vector2 aim)
+	private void CastSingularitys()
 	{
 			var scene = GD.Load<PackedScene>("res://Components/Mechanics/SoakComponent/SoakPuddleComponent/SoakPuddleComponent.tscn");
 			SoakPuddleComponent instance = (SoakPuddleComponent)scene.Instantiate();
@@ -61,6 +61,7 @@ public partial class SoakComponent : Node2D
 
 	public void _OnCooldownTimerTimeout()
 	{
+		GD.Print("cast!");
 
 		castFinished();	
 	}

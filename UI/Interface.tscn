@@ -37,3 +37,4 @@ size_flags_horizontal = 0
 
 [node name="PlayerExperienceBar" parent="HBoxContainer/VBoxContainer" instance=ExtResource("4_wm03t")]
 layout_mode = 2
+script = null

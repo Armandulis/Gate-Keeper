@@ -61,6 +61,7 @@ public partial class QuantumFluxCasterComponent : Node2D
 			
 			instance.Position = GetParent<Node2D>().GlobalPosition;
 			instance.aim = GlobalPosition.DirectionTo( aim);
+			instance.damage = 125;
 		
 			GetParent<Node2D>().AddChild(instance);
 			instance.TopLevel = true;

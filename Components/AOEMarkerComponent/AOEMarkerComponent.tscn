@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://xbmrn8xry11r"]
+
+[ext_resource type="Texture2D" uid="uid://cod2r0w6c8q0v" path="res://Assets/licensed-image.jpg" id="1_x68kn"]
+
+[node name="AOEMarkerComponent" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 1.99994)
+scale = Vector2(0.1425, 0.1425)
+texture = ExtResource("1_x68kn")

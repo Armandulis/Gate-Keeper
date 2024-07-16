@@ -135,12 +135,13 @@ sprite_frames = SubResource("SpriteFrames_v3dxb")
 animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
 [node name="PlayerMovementComponent" parent="." instance=ExtResource("3_6vxlg")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_d6umo")]
-maxHealth = 300.0
+maxHealth = 4000.0
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_xrngf")]
 collision_layer = 3

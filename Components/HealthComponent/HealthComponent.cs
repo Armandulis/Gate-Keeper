@@ -11,7 +11,10 @@ public partial class HealthComponent : Node2D
 
     [Export]
 	public float maxHealth;
-	public float currentHealth ;
+	public float currentHealth;
+	
+	[Export]
+	private HealthBar healthBar;
 	
 
     public override void _Ready()
@@ -19,6 +22,10 @@ public partial class HealthComponent : Node2D
 		damageFloatComponent = new DamageFloatComponent();
 		AddChild(damageFloatComponent);
 		currentHealth = maxHealth;
+		if(healthBar != null )
+		{
+			healthBar.initHealth(maxHealth);
+		}
     }
 
 	public float MaxHealth 
@@ -38,6 +45,7 @@ public partial class HealthComponent : Node2D
 			if(currentHealth < 0 )
 			{
 				currentHealth = 0;
+				GetParent().QueueFree();
 			}
 
 			if(currentHealth > MaxHealth )
@@ -59,7 +67,13 @@ public partial class HealthComponent : Node2D
 		spellMetadata.actualValue = spellMetadata.value;
 		DamageMeter.instance.AddDamageSpell(spellMetadata);
 		CurrentHealth -= spellMetadata.value;
-		// PlayerHealthBar.instance.HealthChange(maxHealth, currentHealth);
+		PlayerHealthBar.instance.HealthChange(maxHealth, currentHealth);
+
+		if(healthBar != null)
+		{
+			
+			healthBar.Health = CurrentHealth;
+		}
 	}	
 
 	

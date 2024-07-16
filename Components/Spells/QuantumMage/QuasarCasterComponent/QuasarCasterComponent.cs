@@ -64,6 +64,7 @@ public partial class QuasarCasterComponent : Node2D
 			
 			instance.Position = GetParent<Node2D>().GlobalPosition;
 			instance.aim = GlobalPosition.DirectionTo( aim);
+			instance.damage = 75;
 		
 			GetParent<Node2D>().AddChild(instance);
 			instance.TopLevel = true;

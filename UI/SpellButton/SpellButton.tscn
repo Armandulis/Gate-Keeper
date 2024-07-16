@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://cs5bnl5ief700"]
+
+[ext_resource type="Texture2D" uid="uid://sk4dgqtnadoh" path="res://Assets/spell3.png" id="1_dj0jd"]
+[ext_resource type="Script" path="res://UI/SpellButton/SpellButton.cs" id="2_fegwn"]
+[ext_resource type="Texture2D" uid="uid://cd2053ne5sd1q" path="res://Assets/cifre-ceramica-urban-white-20x20.PNG" id="2_qosnt"]
+
+[node name="Spell3Button" type="TextureButton" node_paths=PackedStringArray("textureProgressBar", "timeLabel")]
+offset_left = 968.0
+offset_top = 912.0
+offset_right = 1112.0
+offset_bottom = 1040.0
+texture_normal = ExtResource("1_dj0jd")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_fegwn")
+textureProgressBar = NodePath("TextureProgressBar")
+timeLabel = NodePath("Time")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 128.0
+step = 0.05
+value = 50.0
+fill_mode = 5
+texture_progress = ExtResource("2_qosnt")
+tint_progress = Color(0.172549, 0.172549, 0.172549, 0.705882)
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 0
+offset_right = 144.0
+offset_bottom = 128.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 2
+vertical_alignment = 2

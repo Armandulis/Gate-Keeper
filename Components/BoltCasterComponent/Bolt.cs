@@ -4,6 +4,7 @@ using System;
 public partial class Bolt : CharacterBody2D
 {
 	public Vector2 aim;
+	public float damage = 100;
 	Timer timer;
 	Area2D impactDetector;
 
@@ -25,7 +26,7 @@ public partial class Bolt : CharacterBody2D
 			hitbox.spellMetadata = spellMetadata;
 			
 			spellMetadata.casterId = player.multiplayerSyncronizer.GetMultiplayerAuthority().ToString();
-			spellMetadata.value = 100;
+			spellMetadata.value = damage;
 			spellMetadata.isCrit = IsCrit();
 			spellMetadata.isDot = false;
 			impactDetector.SetCollisionMaskValue(2, false);
@@ -33,7 +34,7 @@ public partial class Bolt : CharacterBody2D
 		}
 		else
 		{
-			spellMetadata.value = 100;
+			spellMetadata.value = damage;
 			
 			impactDetector.SetCollisionMaskValue(2, true);
 			impactDetector.SetCollisionMaskValue(4, false);
@@ -50,7 +51,7 @@ public partial class Bolt : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
 	{
-		var collision = MoveAndCollide(aim.Normalized() * (float)delta * 1300);
+		var collision = MoveAndCollide(motion: aim.Normalized() * (float)delta * 1300);
 		
 	}
 

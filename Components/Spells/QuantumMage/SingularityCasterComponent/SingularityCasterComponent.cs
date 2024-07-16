@@ -85,6 +85,7 @@ public partial class SingularityCasterComponent : Node2D
 			
 			instance.Position = GetParent<Node2D>().GlobalPosition;
 			instance.aim = GlobalPosition.DirectionTo( aim);
+			instance.damage = 175;
 		
 			GetParent<Node2D>().AddChild(instance);
 			instance.TopLevel = true;

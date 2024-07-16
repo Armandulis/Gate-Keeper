@@ -28,7 +28,7 @@ public partial class Slime : CharacterBody2D
     }
     public override void _PhysicsProcess(double delta)
 	{	
-		boltCasterComponent.Cast();
+		// boltCasterComponent.Cast();
 		this.enemyMeleeMovementComponent.Chase(this, (float)delta);	
 		if(this.isChasing == true )
 		{
