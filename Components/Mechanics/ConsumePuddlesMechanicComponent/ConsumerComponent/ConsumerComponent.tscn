@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgtqg8rkaklqo"]
+
+[ext_resource type="Script" path="res://Components/Mechanics/ConsumePuddlesMechanicComponent/ConsumerComponent/ConsumerComponent.cs" id="1_5k3h1"]
+
+[node name="ConsumerComponent" type="Node2D" node_paths=PackedStringArray("consumeTimer")]
+script = ExtResource("1_5k3h1")
+consumeTimer = NodePath("ConsumeTimer")
+
+[node name="ConsumeTimer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="ConsumeTimer" to="." method="_OnConsumeTimerTimeout"]
