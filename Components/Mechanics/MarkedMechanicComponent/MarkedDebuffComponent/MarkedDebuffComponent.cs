@@ -16,13 +16,13 @@ public partial class MarkedDebuffComponent : Node2D
 	public void _OnDurationTimerTimeout()
 	{
 		// Create a puddle
-			var scene = GD.Load<PackedScene>("res://Components/Mechanics/MarkedMechanicComponent/PuddleMechanicComponent/PuddleMechanicComponent.tscn");
-			PuddleMechanicComponent puddleMechanicComponent = (PuddleMechanicComponent)scene.Instantiate();
-			
-			puddleMechanicComponent.Position = GlobalPosition;
+		var scene = GD.Load<PackedScene>("res://Components/Mechanics/MarkedMechanicComponent/PuddleMechanicComponent/PuddleMechanicComponent.tscn");
+		PuddleMechanicComponent puddleMechanicComponent = (PuddleMechanicComponent)scene.Instantiate();
 		
-			GetParent().AddChild(puddleMechanicComponent);
-			puddleMechanicComponent.TopLevel = true;
+		puddleMechanicComponent.Position = GlobalPosition;
+	
+		GetParent().AddChild(puddleMechanicComponent);
+		puddleMechanicComponent.TopLevel = true;
 
 		// remove self
 		QueueFree();

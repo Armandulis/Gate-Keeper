@@ -8,7 +8,7 @@
 radius = 70.1627
 height = 283.737
 
-[node name="PuddleMechanicComponent" type="Node2D"]
+[node name="PuddleMechanicComponent" type="Node2D" groups=["PuddleMechanicUnit"]]
 script = ExtResource("1_6yubr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

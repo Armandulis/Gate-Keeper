@@ -56,6 +56,7 @@ public partial class HealthComponent : Node2D
 	}
 
 	public bool IsDamaged => CurrentHealth < MaxHealth;
+	public double hpPercentage => CurrentHealth / MaxHealth * 100f;
 
 
 	/// <summary>
