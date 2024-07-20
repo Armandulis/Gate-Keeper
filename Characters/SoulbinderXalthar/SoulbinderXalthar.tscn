@@ -26,7 +26,8 @@ script = ExtResource("1_xqpc4")
 texture = ExtResource("1_4bj6e")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("2_5b2tl")]
-maxHealth = 5000.0
+position = Vector2(-1, 0)
+maxHealth = 1000.0
 healthBar = NodePath("../CanvasLayer/HealthBar")
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_5ri6r")]
