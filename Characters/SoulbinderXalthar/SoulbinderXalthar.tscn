@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://yhj547kt6ac5"]
 
-[ext_resource type="Texture2D" uid="uid://bll1kcw71nbou" path="res://Assets/Boss1/SouldbinderXalthar.png" id="1_4bj6e"]
 [ext_resource type="Script" path="res://Characters/SoulbinderXalthar/SoulbinderXalthar.cs" id="1_xqpc4"]
 [ext_resource type="PackedScene" uid="uid://xiop66rwfrek" path="res://Components/HealthComponent/HealthComponent.tscn" id="2_5b2tl"]
 [ext_resource type="PackedScene" uid="uid://c2nrqq0g2cyny" path="res://Components/Hurtbox/Hurtbox.tscn" id="3_5ri6r"]
 [ext_resource type="PackedScene" uid="uid://dgv8iiyxlmu44" path="res://Components/BoltCasterComponent/BoltCasterComponent.tscn" id="5_rn76o"]
 [ext_resource type="PackedScene" uid="uid://dbenxy1k7sc05" path="res://UI/HealthBar/HealthBar.tscn" id="7_w1rx2"]
 [ext_resource type="PackedScene" uid="uid://dedfkli5lmb20" path="res://Components/Mechanics/MarkedMechanicComponent/MarkedMechanicComponent.tscn" id="8_cuva3"]
+[ext_resource type="PackedScene" uid="uid://suee0phxnqvw" path="res://Components/Mechanics/SoakComponent/SoakComponent.tscn" id="9_28is5"]
 [ext_resource type="PackedScene" uid="uid://cgtqg8rkaklqo" path="res://Components/Mechanics/ConsumePuddlesMechanicComponent/ConsumerComponent/ConsumerComponent.tscn" id="9_rgvpc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fesqn"]
@@ -23,12 +23,10 @@ collision_mask = 11
 script = ExtResource("1_xqpc4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_4bj6e")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("2_5b2tl")]
+[node name="HealthComponent" parent="." instance=ExtResource("2_5b2tl")]
 position = Vector2(-1, 0)
 maxHealth = 1000.0
-healthBar = NodePath("../CanvasLayer/HealthBar")
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_5ri6r")]
 collision_layer = 0
@@ -48,14 +46,6 @@ shape = SubResource("CapsuleShape2D_fesqn")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthBar" parent="CanvasLayer" instance=ExtResource("7_w1rx2")]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -307.0
-offset_top = 33.0
-offset_right = 314.0
-offset_bottom = 46.0
-grow_horizontal = 2
 
 [node name="MarkedMechanicComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("8_cuva3")]
 healthComponent = NodePath("../HealthComponent")
@@ -70,5 +60,7 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MechanicArea"]
 position = Vector2(3.33333, 0)
 shape = SubResource("CapsuleShape2D_8cqfa")
+
+[node name="SoakComponent" parent="." instance=ExtResource("9_28is5")]
 
 [editable path="Hurtbox"]

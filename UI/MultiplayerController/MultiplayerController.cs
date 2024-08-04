@@ -4,6 +4,10 @@ using System.Linq;
 
 public partial class MultiplayerController : Control
 {
+	
+	[Export]
+	private SceneNamesEnum sceneNamesEnum;
+	
 	[Export]
 	private int port = 8910;
 	
@@ -37,7 +41,6 @@ public partial class MultiplayerController : Control
     private void ConnectedToServer()
     {
 		RpcId(1, nameof(SendPlayerInformation), GetNode<LineEdit>("LineEdit").Text, Multiplayer.GetUniqueId() );
-		GD.Print("ConnectedToServer");
     }
 
 
@@ -48,13 +51,11 @@ public partial class MultiplayerController : Control
 	/// <exception cref="NotImplementedException"></exception>
     private void PeerDisconnect(long id)
     {
-		GD.Print("PeerDisconnect" + id.ToString());
 		GameManager.players.Remove( (PlayerInfo)GameManager.players.Where<PlayerInfo>(i => i.id == id ).First<PlayerInfo>() );
 		var players = GetTree().GetNodesInGroup("Player");
 		
 		foreach( Player player in players )
 		{
-			GD.Print(player.playerId);
 			if(player.playerId == id.ToString() )
 			{
 				player.QueueFree();
@@ -91,7 +92,6 @@ public partial class MultiplayerController : Control
 		peer.Host.Compress( ENetConnection.CompressionMode.RangeCoder );
 		Multiplayer.MultiplayerPeer = peer;
 		SendPlayerInformation(GetNode<LineEdit>("LineEdit").Text, 1);
-		GD.Print( "Waiting for Players!" );
 	}
 
 	public void _on_join_button_down()
@@ -100,7 +100,6 @@ public partial class MultiplayerController : Control
 		peer.CreateClient(address, port);
 		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
 		Multiplayer.MultiplayerPeer = peer;
-		GD.Print( "Joining Game!" );
 	}
 
 	public void _on_start_button_down()
@@ -116,8 +115,7 @@ public partial class MultiplayerController : Control
 		{
 			GD.Print(player.name + " is playing");
 		}
-		var scene = ResourceLoader.Load<PackedScene>("res://Scenes/World.tscn").Instantiate();
-		GetTree().Root.AddChild(scene);
+		SceneManager.instance.ChangeScene( SceneNamesEnum.World );
 		this.Hide();
 	}
 

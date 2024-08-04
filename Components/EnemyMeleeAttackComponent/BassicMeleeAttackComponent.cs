@@ -35,7 +35,6 @@ public partial class BassicMeleeAttackComponent : Area2D
 	{
 		if(isInRange == true && isAttacking == false && isAttackCooldown == false)
 		{
-			GD.Print("charge attack!");
 			isAttacking = true;
 			attackActionTimer.Start(timeSec: 5);
 		}
@@ -57,7 +56,6 @@ public partial class BassicMeleeAttackComponent : Area2D
 
 	public void OnMeleeAttackAreaEntered(Node2D hurtbox)
 	{	
-		GD.Print(hurtbox.GetParent().Name);
 		Player player = hurtbox.GetParentOrNull<Player>();
 		if( player == null )
 		{
@@ -73,12 +71,8 @@ public partial class BassicMeleeAttackComponent : Area2D
 		Player player = hurtbox.GetParentOrNull<Player>();
 		if( player == null )
 		{
-			
-			GD.Print("EXITED NON PLAYER");
 			return;
 		}
-		
-			GD.Print("EXITED PLAYER");
 		isInRange = false;
 	}
 
@@ -86,7 +80,6 @@ public partial class BassicMeleeAttackComponent : Area2D
 	{
 		hitbox.SetCollisionLayerValue(16, true); 
 		
-		GD.Print("attack!: layer 16" + hitbox.GetCollisionLayerValue(16).ToString() );
 		isAttackCooldown = true;
 		isAttacking = false;
 
@@ -95,8 +88,6 @@ public partial class BassicMeleeAttackComponent : Area2D
 
 	public void OnAttackCooldownTimerTimeout()
 	{
-		
-		GD.Print("reset cooldown");
 		isAttackCooldown = false;
 	}
 }

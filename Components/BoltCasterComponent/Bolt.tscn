@@ -1,29 +1,58 @@
-[gd_scene load_steps=10 format=3 uid="uid://bq8rveide5jdl"]
+[gd_scene load_steps=19 format=3 uid="uid://bq8rveide5jdl"]
 
-[ext_resource type="Texture2D" uid="uid://cc5hfem8nwtki" path="res://Assets/Bolt/bolt1.png" id="1_o4vj5"]
 [ext_resource type="Script" path="res://Components/BoltCasterComponent/Bolt.cs" id="1_s537b"]
-[ext_resource type="Texture2D" uid="uid://dyuxfw8mxbypy" path="res://Assets/Bolt/bolt2.png" id="2_v1dim"]
-[ext_resource type="Texture2D" uid="uid://debt45qe4s3ps" path="res://Assets/Bolt/bolt3.png" id="3_tmnpd"]
-[ext_resource type="Texture2D" uid="uid://ci7rpuvun1n7t" path="res://Assets/Bolt/bolt4.png" id="4_hc7ks"]
+[ext_resource type="Texture2D" uid="uid://bo0bb33w65sfc" path="res://Assets/Sprites/Spells/Fire_Ball/006.png" id="2_a2pan"]
+[ext_resource type="Texture2D" uid="uid://cwj0aev80qo7q" path="res://Assets/Sprites/Spells/Fire_Ball/007.png" id="3_q418f"]
+[ext_resource type="Texture2D" uid="uid://0urxo2t875k" path="res://Assets/Sprites/Spells/Fire_Ball/008.png" id="4_8e6nw"]
+[ext_resource type="Texture2D" uid="uid://b5i51dpjmnwhu" path="res://Assets/Sprites/Spells/Fire_Ball/009.png" id="5_hlb7a"]
 [ext_resource type="PackedScene" uid="uid://beuryv8j26jih" path="res://Components/Hitbox/Hitbox.tscn" id="6_p5j2f"]
+[ext_resource type="Texture2D" uid="uid://dm6mpvs5hy4hr" path="res://Assets/Sprites/Spells/Fire_Ball/010.png" id="6_pqpat"]
+[ext_resource type="Texture2D" uid="uid://cwmc82645pttw" path="res://Assets/Sprites/Spells/Fire_Ball/001.png" id="7_yk4jh"]
+[ext_resource type="Texture2D" uid="uid://vq6kwspm134e" path="res://Assets/Sprites/Spells/Fire_Ball/002.png" id="8_vj0ck"]
+[ext_resource type="Texture2D" uid="uid://d2igyaukd0r2a" path="res://Assets/Sprites/Spells/Fire_Ball/003.png" id="9_xomqb"]
+[ext_resource type="Texture2D" uid="uid://bluocywvpt4qm" path="res://Assets/Sprites/Spells/Fire_Ball/004.png" id="10_ph00r"]
+[ext_resource type="Texture2D" uid="uid://127rdascfovg" path="res://Assets/Sprites/Spells/Fire_Ball/005.png" id="11_g7fhv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jvrwm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_o4vj5")
+"texture": ExtResource("2_a2pan")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_v1dim")
+"texture": ExtResource("3_q418f")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_tmnpd")
+"texture": ExtResource("4_8e6nw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_hc7ks")
+"texture": ExtResource("5_hlb7a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_pqpat")
+}],
+"loop": false,
+"name": &"collide",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_yk4jh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_vj0ck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_xomqb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ph00r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_g7fhv")
 }],
 "loop": true,
-"name": &"default",
+"name": &"flying",
 "speed": 12.0
 }]
 
@@ -33,13 +62,110 @@ size = Vector2(45, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72kqr"]
 size = Vector2(45, 20)
 
-[node name="Bolt" type="CharacterBody2D"]
-rotation = 1.5708
+[sub_resource type="Animation" id="Animation_ulq8b"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [false],
+"method": &"set_physics_process"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ImpactDetector")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedSprite2D:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"collide", &"collide"]
+}
+
+[sub_resource type="Animation" id="Animation_oivi1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"collide"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oxxkf"]
+_data = {
+"RESET": SubResource("Animation_oivi1"),
+"hit": SubResource("Animation_ulq8b")
+}
+
+[node name="Bolt" type="CharacterBody2D" node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("1_s537b")
+animationPlayer = NodePath("AnimationPlayer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jvrwm")
-autoplay = "default"
+animation = &"collide"
+autoplay = "flying"
 
 [node name="ImpactDetector" type="Area2D" parent="."]
 collision_layer = 24
@@ -59,6 +185,11 @@ collision_mask = 0
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(1.5, 0)
 shape = SubResource("RectangleShape2D_72kqr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oxxkf")
+}
 
 [connection signal="body_entered" from="ImpactDetector" to="." method="_OnImpactDetectorBodyEntered"]
 [connection signal="timeout" from="Timer" to="." method="_OnTimerTimeout"]

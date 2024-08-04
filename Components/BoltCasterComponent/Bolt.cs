@@ -1,8 +1,13 @@
 using Godot;
 using System;
+using System.Reflection.Metadata.Ecma335;
 
 public partial class Bolt : CharacterBody2D
 {
+
+	[Export]
+	public AnimationPlayer animationPlayer;
+
 	public Vector2 aim;
 	public float damage = 100;
 	Timer timer;
@@ -42,28 +47,40 @@ public partial class Bolt : CharacterBody2D
 		}
 		hitbox.spellMetadata = spellMetadata;
 
+		// LookAt(aim);
+
 		// Position = GetParent<Node2D>().GetParent<Node2D>().GlobalPosition;
 		// TopLevel = true;
-		LookAt(aim);
 
+		// LookAt(aim);
 		timer.Start(4);
     }
 
     public override void _PhysicsProcess(double delta)
 	{
-		var collision = MoveAndCollide(motion: aim.Normalized() * (float)delta * 1300);
+		var collision = MoveAndCollide(motion: aim.Normalized() * (float)delta * 100);
 		
+        // Rotation -= Mathf.Pi / 2;
+
+		
+	}
+	public bool move = true;
+	public void stopMoving()
+	{
+		move = false;
+		GD.Print("what");
 	}
 
 	public void _OnImpactDetectorBodyEntered(Node2D body)
 	{
-		QueueFree();
+		animationPlayer.Play("hit");
+		// QueueFree();
 	}
 
 	public void _OnTimerTimeout()
 	{
-		
-		QueueFree();
+		animationPlayer.Play("hit");
+		// QueueFree();
 	}
 
 	public bool IsCrit()

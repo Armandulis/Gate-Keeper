@@ -1,13 +1,11 @@
 using Godot;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 public partial class Core : Node
 {
-	// SINGLETON
-
     public static Core instance;
+    public bool isPlayerAttacking = false;
 
     public override void _Ready()
     {
@@ -17,9 +15,6 @@ public partial class Core : Node
 		}
     }
 
-
-	// CLASS
-    public bool isPlayerAttacking = false;
 
 	public Player GetNearestPlayer(Node2D nearestToBody)
 	{
@@ -44,5 +39,4 @@ public partial class Core : Node
 	{
 		return GetTree().GetNodesInGroup("Players").Count;
 	}
-
 }

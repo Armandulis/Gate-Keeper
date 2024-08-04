@@ -5,6 +5,9 @@ using System.Reflection.Metadata.Ecma335;
 public partial class SpellCastManagerComponent : Node2D
 {
 	[Export]
+	public AnimatedSprite2D animatedSprite2D;
+	
+	[Export]
 	public Timer globalCooldownTimer;
 
     private bool isInGlobalCooldown = false;
@@ -37,6 +40,7 @@ public partial class SpellCastManagerComponent : Node2D
 
 	public void finishedCastingSpell()
 	{
+		this.animatedSprite2D.Play("idle");
 		isCasting = false;
 	}
 
@@ -44,6 +48,7 @@ public partial class SpellCastManagerComponent : Node2D
 	{
 		if( !isInGlobalCooldown && !isCasting )
 		{
+			this.animatedSprite2D.Play("cast");
 			spellCasted();
 			return true;
 		}

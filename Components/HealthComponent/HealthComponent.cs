@@ -3,6 +3,9 @@ using System;
 
 public partial class HealthComponent : Node2D
 {
+	
+	[Export]
+	public AnimatedSprite2D animatedSprite2D;
 
 	private DamageFloatComponent damageFloatComponent;
 
@@ -64,6 +67,7 @@ public partial class HealthComponent : Node2D
 	/// </summary>
 	public void Damage( SpellMetadata spellMetadata )
 	{	
+		animatedSprite2D.Play("damaged");
 		damageFloatComponent.HandleDamageFloat(spellMetadata.value);
 		spellMetadata.actualValue = spellMetadata.value;
 		DamageMeter.instance.AddDamageSpell(spellMetadata);

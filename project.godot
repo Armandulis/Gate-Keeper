@@ -20,11 +20,15 @@ config/icon="res://icon.svg"
 Core="*res://Scripts/Core.cs"
 DamageMeter="*res://Scripts/DamageMeter.cs"
 GameManager="*res://Scripts/GameManager.cs"
+SceneManager="*res://Scripts/SceneManager.cs"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=480
+window/size/viewport_height=270
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/stretch/mode="canvas_items"
 
 [dotnet]
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://uf773c5s2pes"]
 
 [ext_resource type="Script" path="res://Characters/TrainingDummy/TrainingDummy.cs" id="1_gdrjt"]
-[ext_resource type="Texture2D" uid="uid://u5oyff1g6i0w" path="res://Assets/Training dummy/Training Dummy Sprite Sheet.png" id="1_q2kah"]
 [ext_resource type="PackedScene" uid="uid://c2nrqq0g2cyny" path="res://Components/Hurtbox/Hurtbox.tscn" id="2_fd0d6"]
 [ext_resource type="PackedScene" uid="uid://xiop66rwfrek" path="res://Components/HealthComponent/HealthComponent.tscn" id="3_omnw1"]
+[ext_resource type="Texture2D" uid="uid://7xoggnv1320k" path="res://Assets/Sprites/Enemies/TrainingDummy/Training Dummy Sprite Sheet.png" id="4_8fha3"]
 [ext_resource type="PackedScene" uid="uid://dm1w8v55i2hft" path="res://Components/CastBarComponent/CastBarComponent.tscn" id="5_net6k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ualew"]
@@ -119,7 +119,7 @@ libraries = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_q2kah")
+texture = ExtResource("4_8fha3")
 hframes = 8
 vframes = 3
 

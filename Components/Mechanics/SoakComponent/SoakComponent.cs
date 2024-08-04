@@ -61,8 +61,6 @@ public partial class SoakComponent : Node2D
 
 	public void _OnCooldownTimerTimeout()
 	{
-		GD.Print("cast!");
-
 		castFinished();	
 	}
 }

@@ -59,7 +59,5 @@ public partial class MovingOrbMechanicComponent : Node2D
 			QueueFree();
 			return;
 		}
-		
-			GD.Print("nope");
 	}
 }

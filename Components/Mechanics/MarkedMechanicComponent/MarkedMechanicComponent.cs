@@ -20,10 +20,8 @@ public partial class MarkedMechanicComponent : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		GD.Print("NO BUEONO" + healthComponent.hpPercentage );
 		if( healthComponent.hpPercentage <= 60 && healthComponent.hpPercentage > 30 && isMechanicActive == false )
 		{
-			GD.Print("YPE YPE YPE YPE YPEYPE YP!");
 			isMechanicActive = true;
 			cooldownTimer.Start(1);
 		}
