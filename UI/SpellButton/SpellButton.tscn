@@ -1,36 +1,74 @@
-[gd_scene load_steps=4 format=3 uid="uid://cs5bnl5ief700"]
+[gd_scene load_steps=6 format=3 uid="uid://dejd5di76jeai"]
 
-[ext_resource type="Texture2D" uid="uid://sk4dgqtnadoh" path="res://Assets/spell3.png" id="1_dj0jd"]
-[ext_resource type="Script" path="res://UI/SpellButton/SpellButton.cs" id="2_fegwn"]
-[ext_resource type="Texture2D" uid="uid://cd2053ne5sd1q" path="res://Assets/cifre-ceramica-urban-white-20x20.PNG" id="2_qosnt"]
+[ext_resource type="Texture2D" uid="uid://cl0p5aa30hint" path="res://Assets/Icons/Fireball.png" id="1_xbnlc"]
+[ext_resource type="Script" path="res://UI/SpellButton/SpellButton.cs" id="2_m6sq5"]
+[ext_resource type="Texture2D" uid="uid://uugxxvm5k36t" path="res://Assets/Icons/white32x32.jpg" id="3_xfv81"]
 
-[node name="Spell3Button" type="TextureButton" node_paths=PackedStringArray("textureProgressBar", "timeLabel")]
-offset_left = 968.0
-offset_top = 912.0
-offset_right = 1112.0
-offset_bottom = 1040.0
-texture_normal = ExtResource("1_dj0jd")
+[sub_resource type="InputEventKey" id="InputEventKey_d01qe"]
+
+[sub_resource type="Shortcut" id="Shortcut_f6rqk"]
+events = [SubResource("InputEventKey_d01qe")]
+
+[node name="SpellButton" type="TextureButton" node_paths=PackedStringArray("cooldownProgressBar", "labelKey", "labelTime", "timer")]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+shortcut = SubResource("Shortcut_f6rqk")
+texture_normal = ExtResource("1_xbnlc")
 ignore_texture_size = true
 stretch_mode = 0
-script = ExtResource("2_fegwn")
-textureProgressBar = NodePath("TextureProgressBar")
-timeLabel = NodePath("Time")
+script = ExtResource("2_m6sq5")
+cooldownProgressBar = NodePath("Cooldown")
+labelKey = NodePath("Key")
+labelTime = NodePath("Time")
+timer = NodePath("Timer")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+[node name="Cooldown" type="TextureProgressBar" parent="."]
 layout_mode = 0
-offset_right = 144.0
-offset_bottom = 128.0
-step = 0.05
-value = 50.0
+offset_right = 32.0
+offset_bottom = 32.0
+step = 0.01
 fill_mode = 5
-texture_progress = ExtResource("2_qosnt")
-tint_progress = Color(0.172549, 0.172549, 0.172549, 0.705882)
+texture_progress = ExtResource("3_xfv81")
+tint_progress = Color(0.121569, 0.121569, 0.121569, 0.882353)
+
+[node name="Key" type="Label" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -21.0
+offset_right = 32.0
+offset_bottom = 3.0
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "1"
+vertical_alignment = 2
 
 [node name="Time" type="Label" parent="."]
-layout_mode = 0
-offset_right = 144.0
-offset_bottom = 128.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 32.0
+grow_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 33.0
+offset_bottom = 32.0
+
+[connection signal="pressed" from="." to="." method="_OnPressedSpellButton"]
+[connection signal="timeout" from="Timer" to="." method="_OnTimerTimeout"]

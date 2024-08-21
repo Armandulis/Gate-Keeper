@@ -1,23 +1,25 @@
 using Godot;
 using System;
+using System.Linq;
 
-public partial class DamageDetails : Control
+public partial class SpellBar : HBoxContainer
 {
-	[Export]
-	public Label label0;
-	
-	[Export]
-	public Label label1;
-	
+	private SpellBar[] slots;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		foreach (var child in GetChildren() )
+		{
+			if( child.GetType() == typeof(SpellButton) )
+			{
+				slots.Append( child );
+			}
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		label0.Text = DamageMeter.instance.dmgText0;
-		label1.Text = DamageMeter.instance.dmgText1;
 	}
 }

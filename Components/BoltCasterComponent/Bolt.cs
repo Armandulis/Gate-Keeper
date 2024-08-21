@@ -31,8 +31,9 @@ public partial class Bolt : CharacterBody2D
 			hitbox.spellMetadata = spellMetadata;
 			
 			spellMetadata.casterId = player.multiplayerSyncronizer.GetMultiplayerAuthority().ToString();
-			spellMetadata.value = damage;
+			
 			spellMetadata.isCrit = IsCrit();
+			spellMetadata.value = spellMetadata.isCrit ? damage * 1.5f : damage;
 			spellMetadata.isDot = false;
 			impactDetector.SetCollisionMaskValue(2, false);
 			impactDetector.SetCollisionMaskValue(4, true);
@@ -54,6 +55,7 @@ public partial class Bolt : CharacterBody2D
 
 		// LookAt(aim);
 		timer.Start(4);
+		Rotation = (aim - GlobalPosition).Angle();
     }
 
     public override void _PhysicsProcess(double delta)

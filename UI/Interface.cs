@@ -14,6 +14,6 @@ public partial class Interface : Control
 	}
 
 	public void HealthChanged(float health)
-	{
+	{ 
 	}
 }

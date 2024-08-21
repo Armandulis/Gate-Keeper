@@ -1,25 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxchjryjxc0mv"]
+[gd_scene load_steps=9 format=3 uid="uid://bxchjryjxc0mv"]
 
 [ext_resource type="Script" path="res://Components/Mechanics/ConsumePuddlesMechanicComponent/MovingOrbMechanicComponent/MovingOrbMechanicComponent.cs" id="1_1jord"]
-[ext_resource type="Texture2D" uid="uid://cc5hfem8nwtki" path="res://Assets/Bolt/bolt1.png" id="1_2xkrk"]
-[ext_resource type="Texture2D" uid="uid://dyuxfw8mxbypy" path="res://Assets/Bolt/bolt2.png" id="2_71dkm"]
-[ext_resource type="Texture2D" uid="uid://debt45qe4s3ps" path="res://Assets/Bolt/bolt3.png" id="3_ay205"]
-[ext_resource type="Texture2D" uid="uid://ci7rpuvun1n7t" path="res://Assets/Bolt/bolt4.png" id="4_iks22"]
+[ext_resource type="Texture2D" uid="uid://lsr1r2nrptkn" path="res://Assets/Sprites/Spells/Wind/001.png" id="2_60x4e"]
+[ext_resource type="Texture2D" uid="uid://cs2ua0himfr5x" path="res://Assets/Sprites/Spells/Wind/002.png" id="3_hsjmt"]
+[ext_resource type="Texture2D" uid="uid://ktcjdmfv8nq" path="res://Assets/Sprites/Spells/Wind/003.png" id="4_bl46h"]
+[ext_resource type="Texture2D" uid="uid://3skdgtyv548k" path="res://Assets/Sprites/Spells/Wind/004.png" id="5_m37mr"]
+[ext_resource type="Texture2D" uid="uid://bd0v0rmhqjeb0" path="res://Assets/Sprites/Spells/Wind/005.png" id="6_vdhuo"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m5vte"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_2xkrk")
+"texture": ExtResource("2_60x4e")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_71dkm")
+"texture": ExtResource("3_hsjmt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_ay205")
+"texture": ExtResource("4_bl46h")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_iks22")
+"texture": ExtResource("5_m37mr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vdhuo")
 }],
 "loop": true,
 "name": &"default",
@@ -36,6 +40,7 @@ script = ExtResource("1_1jord")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_m5vte")
 autoplay = "default"
+frame_progress = 0.391464
 
 [node name="MechanicArea" type="Area2D" parent="."]
 collision_layer = 64

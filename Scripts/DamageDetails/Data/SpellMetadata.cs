@@ -5,9 +5,7 @@ using System.Text.Json;
 using System.Collections.Generic;
 
 public partial class SpellMetadata : GodotObject
-{
-  
-
+{ 
     public string id = "default";
     public string spellId = "default";
     public string casterId = "default";
@@ -31,7 +29,7 @@ public partial class SpellMetadata : GodotObject
         }
     }
 
-    public static SpellMetadata ConvertFromRawString( string rawData)
+    public static SpellMetadata ConvertFromRawString( string rawData) 
     {
         JsonElement  data = JsonSerializer.Deserialize<JsonElement>( rawData);
         SpellMetadata spellMetadata = new SpellMetadata

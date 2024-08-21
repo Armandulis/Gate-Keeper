@@ -35,4 +35,3 @@ position = Vector2(152, 79)
 
 [node name="Soulbinder Xalthar" parent="." instance=ExtResource("5_w4crg")]
 position = Vector2(287, 159.667)
-scale = Vector2(0.2, 0.2)

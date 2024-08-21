@@ -1,25 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://k85p3feu4uo4"]
+[gd_scene load_steps=8 format=3 uid="uid://k85p3feu4uo4"]
 
 [ext_resource type="Script" path="res://Components/Mechanics/MarkedMechanicComponent/MarkedDebuffComponent/MarkedDebuffComponent.cs" id="1_v70g6"]
-[ext_resource type="Texture2D" uid="uid://cc5hfem8nwtki" path="res://Assets/Bolt/bolt1.png" id="2_2xqet"]
-[ext_resource type="Texture2D" uid="uid://dyuxfw8mxbypy" path="res://Assets/Bolt/bolt2.png" id="3_775k3"]
-[ext_resource type="Texture2D" uid="uid://debt45qe4s3ps" path="res://Assets/Bolt/bolt3.png" id="4_j3gbo"]
-[ext_resource type="Texture2D" uid="uid://ci7rpuvun1n7t" path="res://Assets/Bolt/bolt4.png" id="5_yjcxm"]
+[ext_resource type="Texture2D" uid="uid://nku5n07l3clp" path="res://Assets/Sprites/Spells/Portal/001.png" id="2_qav11"]
+[ext_resource type="Texture2D" uid="uid://co05jtkqxfiim" path="res://Assets/Sprites/Spells/Portal/002.png" id="3_k4g44"]
+[ext_resource type="Texture2D" uid="uid://cuxfskx2v23hk" path="res://Assets/Sprites/Spells/Portal/003.png" id="4_3uebj"]
+[ext_resource type="Texture2D" uid="uid://bhqpyybkqlafv" path="res://Assets/Sprites/Spells/Portal/004.png" id="5_v6wjs"]
+[ext_resource type="Texture2D" uid="uid://clbieek5ic0wh" path="res://Assets/Sprites/Spells/Portal/005.png" id="6_1pgvv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rdgkx"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_2xqet")
+"texture": ExtResource("2_qav11")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_775k3")
+"texture": ExtResource("3_k4g44")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_j3gbo")
+"texture": ExtResource("4_3uebj")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_yjcxm")
+"texture": ExtResource("5_v6wjs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1pgvv")
 }],
 "loop": true,
 "name": &"default",
@@ -37,5 +41,6 @@ autostart = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rdgkx")
 autoplay = "default"
+frame_progress = 0.90105
 
 [connection signal="timeout" from="DurationTimer" to="." method="_OnDurationTimerTimeout"]

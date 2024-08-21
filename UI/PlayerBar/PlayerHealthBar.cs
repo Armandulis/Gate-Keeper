@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 
 public partial class PlayerHealthBar : HBoxContainer
 {
-	
     public static PlayerHealthBar instance;
 
 	 public override void _Ready()
